@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import logo from '../../assets/logo_gv.png'; // update this path if needed
+import logo from '../../assets/logo_gv.png';
 
 const navLinks = [
   { id: 'home', label: 'Home' },
@@ -14,25 +14,28 @@ const Navbar = ({ scrollToSection }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed w-full top-0 left-0 z-50 bg-white shadow-md">
-      {/* Top accent bar */}
-      <div className="w-full h-1 bg-blue-900" />
+    <nav className="fixed w-full top-0 left-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-emerald-200">
+      {/* Top accent bar - emerald gradient */}
+      <div className="w-full h-1 bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-700" />
+      
       {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo + Name */}
           <div className="flex items-center gap-2 cursor-pointer">
-            <img src={logo} alt="GREENVORA EXIM Logo" className="h-10 w-auto" />
-            <span className="ml-2 text-2xl font-bold text-blue-900 tracking-wide select-none">GREENVORA EXIM</span>
+            <img src={logo} alt="GREENVORA EXIM Logo" className="h-10 w-auto drop-shadow-md" />
+            <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent tracking-wide select-none">
+              GREENVORA EXIM
+            </span>
           </div>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex gap-6">
+          <div className="hidden md:flex gap-6 items-center">
             {navLinks.map(link => (
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="relative px-3 py-2 font-medium text-blue-900 bg-white hover:text-blue-600 transition after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-blue-700 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left"
+                className="relative px-3 py-2 font-medium text-emerald-900 hover:text-emerald-700 transition-all duration-300 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-gradient-to-r after:from-emerald-500 after:to-emerald-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left after:rounded-full"
               >
                 {link.label}
               </button>
@@ -40,20 +43,27 @@ const Navbar = ({ scrollToSection }) => {
           </div>
 
           {/* Mobile menu button */}
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden">
-            {isMenuOpen ? <X className="h-6 w-6 text-blue-900" /> : <Menu className="h-6 w-6 text-blue-900" />}
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)} 
+            className="md:hidden p-2 rounded-lg hover:bg-emerald-50 transition-colors"
+          >
+            {isMenuOpen ? 
+              <X className="h-6 w-6 text-emerald-800" /> : 
+              <Menu className="h-6 w-6 text-emerald-800" />
+            }
           </button>
         </div>
       </div>
+      
       {/* Mobile menu dropdown */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t shadow-lg">
+        <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-emerald-200 shadow-xl">
           <div className="px-4 py-4 space-y-2">
             {navLinks.map(link => (
               <button
                 key={link.id}
                 onClick={() => { scrollToSection(link.id); setIsMenuOpen(false); }}
-                className="block w-full text-left text-blue-900 font-medium py-2 hover:bg-blue-50 transition rounded"
+                className="block w-full text-left text-emerald-900 font-medium py-3 px-4 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-emerald-100 transition-all duration-300 rounded-xl border-l-4 border-transparent hover:border-emerald-500"
               >
                 {link.label}
               </button>
