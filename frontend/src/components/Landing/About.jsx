@@ -14,7 +14,8 @@ const About = () => (
             <span className="w-8 h-1 rounded bg-blue-600"></span>
           </div>
           <p className="text-lg text-gray-700 leading-relaxed">
-            Greenvora Exim is a leading import & export company based in India, specializing in sustainable and high-quality products such as jute bags, textiles, and industrial equipment. With deep roots in reliable sourcing and customer satisfaction, our business demands high trust and long-term partnerships across the world.
+           Greenvora Exim is a growing import and export company from India, dedicated to delivering high-quality products with a strong focus on reliability, sustainability, and smooth end-to-end service.
+We believe in building long-term partnerships through transparent communication, consistent quality, and a customer-first approach. Our commitment to timely deliveries, ethical operations, and dependable support ensures a seamless and trustworthy experience for clients across global markets.
           </p>
         </div>
         {/* Right: Vision */}
@@ -27,7 +28,8 @@ const About = () => (
             <span className="w-8 h-1 rounded bg-blue-600"></span>
           </div>
           <p className="text-lg text-gray-700 leading-relaxed">
-            At Greenvora Exim, we aim to exceed our clients' trust and build relationships that go beyond sales and profit. Through quality assurance, diverse services, and a client-centric approach, we maintain a top position as one of South Asia's most prominent export partners, making an impact in the global sustainable products market.
+            Our vision is to build Greenvora Exim into a trusted global partner known for delivering reliable, sustainable, and high-quality export solutions. We are committed to ethical sourcing, consistent product quality, and a customer-first approach that ensures long-term business success.
+By expanding our international network, strengthening supply capabilities, and offering value-driven services, we aim to support businesses worldwide with dependable products and seamless import–export experiences. Our focus is on creating meaningful, long-lasting partnerships that contribute to transparent, responsible, and sustainable global trade.
           </p>
         </div>
       </div>

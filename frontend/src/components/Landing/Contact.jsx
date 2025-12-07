@@ -54,9 +54,9 @@ const Enquiry = () => {
                 <MapPin className="h-6 w-6 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-bold text-xl mb-2">Our Office</h3>
-                  <p className="text-gray-200">123 Trade Center Avenue</p>
-                  <p className="text-gray-200">International Business District</p>
-                  <p className="text-gray-200">Mumbai, Maharashtra 400001</p>
+                  <p className="text-gray-200">C-308, Lohia Nagar,</p>
+                  {/* <p className="text-gray-200">International Business District</p> */}
+                  <p className="text-gray-200">Ghaziabad, Uttar Pradesh(201001)</p>
                 </div>
               </div>
             </div>
@@ -65,8 +65,8 @@ const Enquiry = () => {
                 <Phone className="h-6 w-6 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-bold text-xl mb-2">Phone</h3>
-                  <p className="text-gray-200">+91 22 1234 5678</p>
-                  <p className="text-gray-200">+91 98765 43210</p>
+                  <p className="text-gray-200">+91 9319936559</p>
+                  {/* <p className="text-gray-200">+91 98765 43210</p> */}
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@ const Enquiry = () => {
                 <div>
                   <h3 className="font-bold text-xl mb-2">Email</h3>
                   <p className="text-gray-200">info@greenvoraexim.com</p>
-                  <p className="text-gray-200">sales@greenvoraexim.com</p>
+                  {/* <p className="text-gray-200">sales@greenvoraexim.com</p> */}
                 </div>
               </div>
             </div>
