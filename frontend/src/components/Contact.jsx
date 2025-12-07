@@ -1,0 +1,134 @@
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin } from 'lucide-react';
+
+const Enquiry = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+
+  const handleSubmit = () => {
+    if (formData.name && formData.email && formData.message) {
+      alert('Thank you for your message! We will get back to you soon.');
+      setFormData({ name: '', email: '', message: '' });
+    } else {
+      alert('Please fill in all fields.');
+    }
+  };
+
+  return (
+    <section
+      id="contact"
+      className="py-20 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900"
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Heading */}
+        <div className="text-center mb-12">
+        </div>
+
+        {/* Side‑by‑side layout */}
+        <div className="grid md:grid-cols-2 gap-10 items-start">
+          {/* Compact form */}
+          <div className="bg-white/95 rounded-xl shadow-2xl p-6 sm:p-7 w-full">
+            <div className="space-y-4">
+              <div>
+                <label className="block text-emerald-900 font-semibold mb-1.5">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={e =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  className="w-full px-3 py-2.5 border border-emerald-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 text-sm"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label className="block text-emerald-900 font-semibold mb-1.5">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={e =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  className="w-full px-3 py-2.5 border border-emerald-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 text-sm"
+                  placeholder="your.email@example.com"
+                />
+              </div>
+              <div>
+                <label className="block text-emerald-900 font-semibold mb-1.5">
+                  Message
+                </label>
+                <textarea
+                  value={formData.message}
+                  onChange={e =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
+                  rows="4"
+                  className="w-full px-3 py-2.5 border border-emerald-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 text-sm"
+                  placeholder="Tell us about your requirements..."
+                ></textarea>
+              </div>
+              <button
+                onClick={handleSubmit}
+                className="w-full bg-emerald-700 text-white py-3 rounded-lg text-sm font-semibold hover:bg-emerald-600 transition transform hover:scale-105 shadow-md"
+              >
+                Send Message
+              </button>
+            </div>
+          </div>
+
+          {/* Info cards (right side) */}
+          <div className="text-white space-y-5">
+            <div className="bg-emerald-800/50 rounded-xl p-5 backdrop-blur">
+              <div className="flex items-start space-x-3">
+                <MapPin className="h-5 w-5 mt-1 flex-shrink-0 text-emerald-300" />
+                <div>
+                  <h3 className="font-bold text-lg mb-1.5">Our Office</h3>
+                  <p className="text-emerald-100 text-sm">C-308, Lohia Nagar,</p>
+                  <p className="text-emerald-100 text-sm">
+                    Ghaziabad, Uttar Pradesh (201001)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-emerald-800/50 rounded-xl p-5 backdrop-blur">
+              <div className="flex items-start space-x-3">
+                <Phone className="h-5 w-5 mt-1 flex-shrink-0 text-emerald-300" />
+                <div>
+                  <h3 className="font-bold text-lg mb-1.5">Phone</h3>
+                  <p className="text-emerald-100 text-sm">+91 9319936559</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-emerald-800/50 rounded-xl p-5 backdrop-blur">
+              <div className="flex items-start space-x-3">
+                <Mail className="h-5 w-5 mt-1 flex-shrink-0 text-emerald-300" />
+                <div>
+                  <h3 className="font-bold text-lg mb-1.5">Email</h3>
+                  <p className="text-emerald-100 text-sm">info@greenvoraexim.com</p>
+                </div>
+              </div>
+            </div>
+
+            {/* <div className="bg-emerald-800/50 rounded-xl p-5 backdrop-blur">
+              <h3 className="font-bold text-lg mb-2">Business Hours</h3>
+              <p className="text-emerald-100 text-sm">
+                Monday - Friday: 9:00 AM - 6:00 PM
+              </p>
+              <p className="text-emerald-100 text-sm">
+                Saturday: 10:00 AM - 4:00 PM
+              </p>
+              <p className="text-emerald-100 text-sm">Sunday: Closed</p>
+            </div> */}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Enquiry;

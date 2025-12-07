@@ -19,26 +19,34 @@ const products = [
   }
 ];
 
-
 const Products = () => (
-  <section id="products" className="py-20 bg-white">
+  <section id="products" className="py-20 bg-gradient-to-br from-emerald-50 to-emerald-100">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold text-blue-900 mb-4">Our Products</h2>
-        <div className="w-24 h-1 bg-blue-600 mx-auto mb-8"></div>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Quality products sourced from trusted suppliers worldwide
-        </p>
+     
+      
+     
+       
       </div>
+
       <div className="grid md:grid-cols-3 gap-8">
         {products.map((prod, i) => (
-          <div key={prod.name} className="bg-gradient-to-br from-blue-50 to-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2">
-            <div className={`h-48 flex items-center justify-center ${i % 2 === 0 ? "bg-gradient-to-br from-blue-600 to-blue-800" : "bg-gradient-to-br from-blue-700 to-blue-900"}`}>
+          <div
+            key={prod.name}
+            className="bg-white/80 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 border border-emerald-100"
+          >
+            <div
+              className={`h-48 flex items-center justify-center ${
+                i % 2 === 0
+                  ? "bg-gradient-to-br from-emerald-600 to-emerald-800"
+                  : "bg-gradient-to-br from-emerald-500 to-emerald-700"
+              }`}
+            >
               <Package className="h-20 w-20 text-white" />
             </div>
             <div className="p-6">
-              <h3 className="text-xl font-bold text-blue-900 mb-3">{prod.name}</h3>
-              <p className="text-gray-700">{prod.description}</p>
+              <h3 className="text-xl font-bold text-emerald-900 mb-3">{prod.name}</h3>
+              <p className="text-emerald-800">{prod.description}</p>
             </div>
           </div>
         ))}
@@ -46,4 +54,5 @@ const Products = () => (
     </div>
   </section>
 );
+
 export default Products;
