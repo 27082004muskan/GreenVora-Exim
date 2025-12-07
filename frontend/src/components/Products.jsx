@@ -1,5 +1,5 @@
-import React from 'react';
 import { Package } from 'lucide-react';
+import React from 'react';
 
 const products = [
   {
@@ -20,16 +20,9 @@ const products = [
 ];
 
 const Products = () => (
-  <section id="products" className="py-20 bg-gradient-to-br from-emerald-50 to-emerald-100">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-16">
-     
-      
-     
-       
-      </div>
-
-      <div className="grid md:grid-cols-3 gap-8">
+  <section id="products" className="h-full pt-20 pb-8 bg-gradient-to-br from-emerald-50 to-emerald-100 flex flex-col">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex items-center justify-center py-8">
+      <div className="w-full grid md:grid-cols-3 gap-8">
         {products.map((prod, i) => (
           <div
             key={prod.name}

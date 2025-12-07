@@ -1,16 +1,10 @@
-import React from 'react';
 import { TrendingUp, Users } from 'lucide-react';
+import React from 'react';
 
 const Services = () => (
-  <section id="services" className="py-20 bg-gradient-to-br from-emerald-50 to-emerald-100">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-16">
-        
-      
-      
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-8">
+  <section id="services" className="h-full pt-20 pb-8 bg-gradient-to-br from-emerald-50 to-emerald-100 flex flex-col">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex items-center justify-center py-8">
+      <div className="w-full grid md:grid-cols-2 gap-8">
         {/* Card 1 */}
         <div className="bg-white/80 rounded-xl shadow-lg p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border border-emerald-100">
           <div className="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">

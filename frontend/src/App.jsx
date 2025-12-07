@@ -1,24 +1,22 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import Navbar from './components/Landing/Navbar';
-import Hero from './components/Landing/Hero';
 import About from './components/About';
-import Services from './components/Services';
-import Products from './components/Products';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Hero from './components/Landing/Hero';
+import Navbar from './components/Landing/Navbar';
+import LearnMore from './components/LearnMore';
+import Products from './components/Products';
+import Services from './components/Services';
 
 // HOME (landing) page – yahi tumhara current layout hai
 const HomePage = () => {
   return (
     <>
       <Navbar /> {/* ab scrollToSection pass nahi karna */}
-      <div className="pt-20">
-        <Hero />     {/* yahan bhi prop hatado */}
-        
-        <Footer />
-      </div>
+      <Hero />     {/* yahan bhi prop hatado */}
+      <Footer />
     </>
   );
 };
@@ -36,23 +34,23 @@ const AboutPage = () => (
 );
 
 const ServicesPage = () => (
-  <>
+  <div className="min-h-screen flex flex-col bg-gradient-to-br from-emerald-50 to-emerald-100">
     <Navbar />
-    <div className="pt-20">
+    <div className="flex-1">
       <Services />
-      <Footer />
     </div>
-  </>
+    <Footer />
+  </div>
 );
 
 const ProductsPage = () => (
-  <>
+  <div className="min-h-screen flex flex-col bg-gradient-to-br from-emerald-50 to-emerald-100">
     <Navbar />
-    <div className="pt-20">
+    <div className="flex-1">
       <Products />
-      <Footer />
     </div>
-  </>
+    <Footer />
+  </div>
 );
 
 const ContactPage = () => (
@@ -65,6 +63,14 @@ const ContactPage = () => (
   </>
 );
 
+const LearnMorePage = () => (
+  <>
+    <Navbar />
+    <LearnMore />
+    <Footer />
+  </>
+);
+
 function App() {
   return (
     <Routes>
@@ -73,6 +79,7 @@ function App() {
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/products" element={<ProductsPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/learn-more" element={<LearnMorePage />} />
     </Routes>
   );
 }

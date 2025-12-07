@@ -114,16 +114,7 @@ const Enquiry = () => {
               </div>
             </div>
 
-            {/* <div className="bg-emerald-800/50 rounded-xl p-5 backdrop-blur">
-              <h3 className="font-bold text-lg mb-2">Business Hours</h3>
-              <p className="text-emerald-100 text-sm">
-                Monday - Friday: 9:00 AM - 6:00 PM
-              </p>
-              <p className="text-emerald-100 text-sm">
-                Saturday: 10:00 AM - 4:00 PM
-              </p>
-              <p className="text-emerald-100 text-sm">Sunday: Closed</p>
-            </div> */}
+         
           </div>
         </div>
       </div>
