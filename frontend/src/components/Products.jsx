@@ -20,27 +20,30 @@ const products = [
 ];
 
 const Products = () => (
-  <section id="products" className="h-full pt-20 pb-8 bg-gradient-to-br from-emerald-50 to-emerald-100 flex flex-col">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex items-center justify-center py-8">
-      <div className="w-full grid md:grid-cols-3 gap-8">
-        {products.map((prod, i) => (
+  <section className="py-26 bg-emerald-50">
+    <div className="max-w-6xl mx-auto px-8 sm:px-6 lg:px-8">
+      <div className="text-center mb-20">
+        <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent mb-6">
+          Our Products
+        </h1>
+    
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {products.map((prod) => (
           <div
             key={prod.name}
-            className="bg-white/80 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 border border-emerald-100"
+            className="group bg-white rounded-2xl p-8 border border-emerald-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
           >
-            <div
-              className={`h-48 flex items-center justify-center ${
-                i % 2 === 0
-                  ? "bg-gradient-to-br from-emerald-600 to-emerald-800"
-                  : "bg-gradient-to-br from-emerald-500 to-emerald-700"
-              }`}
-            >
-              <Package className="h-20 w-20 text-white" />
+            <div className="w-full h-48 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-xl flex items-center justify-center mb-6 group-hover:from-emerald-600 group-hover:to-emerald-800 transition-all">
+              <Package className="h-16 w-16 text-white drop-shadow-lg" />
             </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-emerald-900 mb-3">{prod.name}</h3>
-              <p className="text-emerald-800">{prod.description}</p>
-            </div>
+            <h3 className="text-2xl font-bold text-emerald-900 mb-4 group-hover:text-emerald-800 transition-colors">
+              {prod.name}
+            </h3>
+            <p className="text-emerald-800 leading-relaxed text-lg">
+              {prod.description}
+            </p>
           </div>
         ))}
       </div>

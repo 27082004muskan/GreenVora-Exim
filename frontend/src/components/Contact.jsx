@@ -16,17 +16,20 @@ const Enquiry = () => {
   return (
     <section
       id="contact"
-      className="py-20 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900"
+      className="min-h-screen -mt-[80px] pt-[150px] pb-20 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 relative"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Heading */}
         <div className="text-center mb-12">
+          <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-300 to-emerald-100 bg-clip-text text-transparent mb-4">
+            Contact Us
+          </h1>
         </div>
 
         {/* Side‑by‑side layout */}
         <div className="grid md:grid-cols-2 gap-10 items-start">
-          {/* Compact form */}
-          <div className="bg-white/95 rounded-xl shadow-2xl p-6 sm:p-7 w-full">
+          {/* Compact form - Exact labels */}
+          <div className="bg-white/95 rounded-xl shadow-2xl p-6 sm:p-7 w-full backdrop-blur-xl">
             <div className="space-y-4">
               <div>
                 <label className="block text-emerald-900 font-semibold mb-1.5">
@@ -79,7 +82,7 @@ const Enquiry = () => {
             </div>
           </div>
 
-          {/* Info cards (right side) */}
+          {/* Info cards - Exact original text */}
           <div className="text-white space-y-5">
             <div className="bg-emerald-800/50 rounded-xl p-5 backdrop-blur">
               <div className="flex items-start space-x-3">
@@ -113,8 +116,6 @@ const Enquiry = () => {
                 </div>
               </div>
             </div>
-
-         
           </div>
         </div>
       </div>

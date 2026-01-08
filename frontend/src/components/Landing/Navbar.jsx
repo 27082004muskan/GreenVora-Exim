@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import logo from '../../assets/logo_gv.png';
 
 const navLinks = [
   { id: 'home', label: 'Home', path: '/' },
@@ -16,9 +15,10 @@ const Navbar = ({ scrollToSection }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const isActive = (path) => location.pathname === path;
+
   const handleClick = (link) => {
     if (link.id === 'home') {
-      // agar already home par ho to scroll, warna route change
       if (location.pathname === '/' && scrollToSection) {
         scrollToSection('home');
       } else {
@@ -31,35 +31,44 @@ const Navbar = ({ scrollToSection }) => {
   };
 
   return (
-    <nav className="fixed w-full top-0 left-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-emerald-200">
-      <div className="w-full h-1" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+    <nav className="fixed top-4 left-1/2 z-50 w-[95%] max-w-7xl -translate-x-1/2">
+      {/* Outer wrapper to give curved card effect */}
+      <div className="bg-white/80 backdrop-blur-xl shadow-xl border border-emerald-100 rounded-full px-4 sm:px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo text badge */}
           <div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => handleClick(navLinks[0])}
           >
-            <img src={logo} alt="GREENVORA EXIM Logo" className="h-10 w-auto drop-shadow-md" />
-            <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent tracking-wide select-none">
-            Expo
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white text-lg font-bold shadow-sm">
+              GE
+            </div>
+            <span className="ml-1 text-xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent tracking-wide select-none">
+              Expo
             </span>
           </div>
 
-          <div className="hidden md:flex gap-6 items-center">
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-4 lg:gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleClick(link)}
-                className="relative px-3 py-2 font-medium text-emerald-900 hover:text-emerald-700 transition-all duration-300 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-gradient-to-r after:from-emerald-500 after:to-emerald-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left after:rounded-full"
+                className={`relative px-3 py-2 text-sm lg:text-base font-medium text-emerald-900 transition-all duration-300 ${
+                  isActive(link.path)
+                    ? 'text-emerald-700 after:scale-x-100'
+                    : 'hover:text-emerald-700 after:scale-x-0 hover:after:scale-x-100'
+                } after:content-[""] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[3px] after:bg-gradient-to-r after:from-emerald-500 after:to-emerald-400 after:transition-transform after:origin-center after:rounded-full`}
               >
                 {link.label}
               </button>
             ))}
           </div>
 
+          {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-emerald-50 transition-colors"
+            className="md:hidden inline-flex items-center justify-center p-2 rounded-full hover:bg-emerald-50 transition-colors"
           >
             {isMenuOpen ? (
               <X className="h-6 w-6 text-emerald-800" />
@@ -70,18 +79,25 @@ const Navbar = ({ scrollToSection }) => {
         </div>
       </div>
 
+      {/* Mobile dropdown with rounded card shape */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-emerald-200 shadow-xl">
-          <div className="px-4 py-4 space-y-2">
-            {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handleClick(link)}
-                className="block w-full text-left text-emerald-900 font-medium py-3 px-4 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-emerald-100 transition-all duration-300 rounded-xl border-l-4 border-transparent hover:border-emerald-500"
-              >
-                {link.label}
-              </button>
-            ))}
+        <div className="mt-3 md:hidden">
+          <div className="bg-white/90 backdrop-blur-xl border border-emerald-100 shadow-xl rounded-3xl overflow-hidden">
+            <div className="px-4 py-3 space-y-1">
+              {navLinks.map((link) => (
+                <button
+                  key={link.id}
+                  onClick={() => handleClick(link)}
+                  className={`block w-full text-left font-medium py-3 px-4 transition-all duration-300 rounded-2xl ${
+                    isActive(link.path)
+                      ? 'text-emerald-700 bg-gradient-to-r from-emerald-50 to-emerald-100 border-l-4 border-emerald-500'
+                      : 'text-emerald-900 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-emerald-100 hover:border-l-4 hover:border-emerald-400'
+                  }`}
+                >
+                  {link.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}
