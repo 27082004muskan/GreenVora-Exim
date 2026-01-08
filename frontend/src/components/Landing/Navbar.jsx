@@ -32,7 +32,7 @@ const Navbar = ({ scrollToSection }) => {
 
   return (
     <nav className="fixed w-full top-0 left-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-emerald-200">
-      <div className="w-full h-1 bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-700" />
+      <div className="w-full h-1" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div
@@ -41,7 +41,7 @@ const Navbar = ({ scrollToSection }) => {
           >
             <img src={logo} alt="GREENVORA EXIM Logo" className="h-10 w-auto drop-shadow-md" />
             <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent tracking-wide select-none">
-              GREENVORA EXIM
+            Expo
             </span>
           </div>
 
