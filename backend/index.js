@@ -19,6 +19,14 @@ app.use('/api/hero',heroRoutes);
 app.use('/api/about',aboutRoutes);
 app.use('/api/services',serviceRoutes);
 
+// Global error handler - YE ADD KARO (app ke baad)
+app.use((err, req, res, next) => {
+  console.error('🚨 500 ERROR:', err.message);
+  console.error('Stack:', err.stack);
+  res.status(500).json({ success: false, message: 'Server error: ' + err.message });
+});
+
+
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log("Mongodb Connected"))
 .catch(err=>console.error('Mongo err:',err));
