@@ -11,7 +11,7 @@ exports.createEnquiry=async(req,res)=>{
        const enquiry = new Enquiry({name , email , message});
        await enquiry.save();
        res.status(201).json({success:true , message:'Entry saved'})
-    }catch(error){  // ✅ Add 'error'
+    }catch(error){ 
     console.error('Enquiry error:', error);
     res.status(500).json({
         success: false,
