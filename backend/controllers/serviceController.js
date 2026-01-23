@@ -1,7 +1,7 @@
 const Service = require('../models/Services');
 
 exports.getServices = async (req, res) => {
-  console.log("get services called");
+//   console.log("get services called");
   try {
     let services = await Service.find();
     if (services.length === 0) {  // ✅ services (lowercase)
