@@ -1,5 +1,6 @@
+import { Mail, MapPin, Phone } from 'lucide-react';
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Enquiry = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -8,7 +9,7 @@ const Enquiry = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
-      alert('Please fill in all fields.');
+      toast.error('Please fill in all fields.');
       return;
     }
     setLoading(true);
@@ -20,14 +21,14 @@ const Enquiry = () => {
       });
       const data = await response.json();
       if (data.success) {
-        alert('Thank you for your message! We will get back to you soon.');
+        toast.success('Thank you for your message! We will get back to you soon.');
         setFormData({ name: '', email: '', message: '' });
       } else {
-        alert(data.message || 'Submission failed');
+        toast.error(data.message || 'Submission failed');
       }
   }catch(error){
     console.error('Submit error:', error);
-    alert('Network error—try again');
+    toast.error('Network error—try again');
 }
 
     setLoading(false);
@@ -38,6 +39,7 @@ const Enquiry = () => {
       id="contact"
       className="min-h-screen -mt-[80px] pt-[150px] pb-20 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 relative"
     >
+      <Toaster position="top-right" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Heading */}
         <div className="text-center mb-12">
