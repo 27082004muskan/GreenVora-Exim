@@ -1,61 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import aimImage from '../assets/aim.png';
 import visionImage from '../assets/vision.png';
+const About = () => {
+  const [aboutData, setAboutData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-const About = () => (
-  <section className="py-20 bg-emerald-50">
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-16 sm:mb-20">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent mb-6">
-          Welcome To Greenvora Exim
-        </h1>
-      </div>
+  useEffect(() => {
+    fetch('/api/about/')
+      .then(res => res.json())
+      .then(data => {
+        setAboutData(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
 
-      <div className="space-y-12 lg:space-y-16">
-        {/* About Us Section */}
+  if (loading) return <div className="py-20 text-center">Loading About...</div>;
+
+  const { heading, aboutUs, vision } = aboutData || {};
+
+  return (
+    <section className="py-20 bg-emerald-50">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16 sm:mb-20">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent mb-6">
+            {heading}
+          </h1>
+        </div>
+
+        {/* About Us */}
         <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12">
           <div className="lg:w-1/2">
-            <h2 className="text-2xl lg:text-3xl font-bold text-emerald-900 mb-6">
-              About Us
-            </h2>
-            <p className="text-base sm:text-lg text-emerald-800 leading-relaxed">
-              Greenvora Exim is a growing import and export company from India, dedicated to delivering high-quality products with a strong focus on reliability, sustainability, and smooth end-to-end service.
-              We believe in building long-term partnerships through transparent communication, consistent quality, and a customer-first approach. Our commitment to timely deliveries, ethical operations, and dependable support ensures a seamless and trustworthy experience for clients across global markets.
-            </p>
+            <h2 className="text-2xl lg:text-3xl font-bold text-emerald-900 mb-6">{aboutUs?.title}</h2>
+            <p className="text-base sm:text-lg text-emerald-800 leading-relaxed">{aboutUs?.content}</p>
           </div>
-          {/* SIMPLY HIDE IMAGES ON MOBILE */}
           <div className="hidden lg:flex lg:w-1/2 justify-end">
-            <img 
-              src={aimImage} 
-              alt="Our Aim" 
-              className="w-full max-w-md h-80 object-cover rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300"
-            />
+            <img src={aimImage} alt="About Us" className="w-full max-w-md h-80 object-cover rounded-2xl shadow-xl" />
           </div>
         </div>
 
-        {/* Our Vision Section */}
-        <div className="flex flex-col lg:flex-row-reverse items-start gap-8 lg:gap-12">
+        {/* Vision */}
+        <div className="flex flex-col lg:flex-row-reverse items-start gap-8 lg:gap-12 mt-12 lg:mt-16">
           <div className="lg:w-1/2">
-            <h2 className="text-2xl lg:text-3xl font-bold text-emerald-900 mb-6">
-              Our Vision
-            </h2>
-            <p className="text-base sm:text-lg text-emerald-800 leading-relaxed">
-              Our vision is to build Greenvora Exim into a trusted global partner known for delivering reliable, sustainable, and high-quality export solutions. We are committed to ethical sourcing, consistent product quality, and a customer-first approach that ensures long-term business success.
-              By expanding our international network, strengthening supply capabilities, and offering value-driven services, we aim to support businesses worldwide with dependable products and seamless import–export experiences. Our focus is on creating meaningful, long-lasting partnerships that contribute to transparent, responsible, and sustainable global trade.
-            </p>
+            <h2 className="text-2xl lg:text-3xl font-bold text-emerald-900 mb-6">{vision?.title}</h2>
+            <p className="text-base sm:text-lg text-emerald-800 leading-relaxed">{vision?.content}</p>
           </div>
-          {/* SIMPLY HIDE IMAGES ON MOBILE */}
           <div className="hidden lg:flex lg:w-1/2 justify-start">
-            <img 
-              src={visionImage} 
-              alt="Our Vision" 
-              className="w-full max-w-md h-80 object-cover rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300"
-            />
+            <img src={visionImage} alt="Vision" className="w-full max-w-md h-80 object-cover rounded-2xl shadow-xl" />
           </div>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default About;
