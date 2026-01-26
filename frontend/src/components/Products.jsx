@@ -1,33 +1,66 @@
-import React, { useState } from 'react';
-import bagImage from '../assets/products/bag.png';
-import basketImage from '../assets/products/basket.png';
-import decorativeItemImage from '../assets/products/decorative_item.png';
-import giftImage from '../assets/products/gift.png';
-import itemsImage from '../assets/products/items.png';
-import mapImage from '../assets/products/map.png';
-import ropeImage from '../assets/products/rope.png';
-import storageBagImage from '../assets/products/storagebag.png';
+// src/components/Products.jsx
+import React, { useState, useEffect, useMemo } from "react";
+import bagImage from "../assets/products/bag.png";
+import basketImage from "../assets/products/basket.png";
+import decorativeItemImage from "../assets/products/decorative_item.png";
+import giftImage from "../assets/products/gift.png";
+import itemsImage from "../assets/products/items.png";
+import mapImage from "../assets/products/map.png";
+import ropeImage from "../assets/products/rope.png";
+import storageBagImage from "../assets/products/storagebag.png";
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isOpen, setIsOpen] = useState(false);
-
-  const products = [
-     { id: 1, name: "Jute Bag", category: "Jute Products", image: bagImage },
-    { id: 2, name: "Jute Basket", category: "Jute Products", image: basketImage },
-    { id: 3, name: "Decorative Item", category: "Jute Products", image: decorativeItemImage },
-    { id: 4, name: "Jute Gift Items", category: "Jute Products", image: giftImage },
-    { id: 5, name: "Jute Items", category: "Jute Products", image: itemsImage },
-    { id: 6, name: "Jute Map", category: "Jute Products", image: mapImage },
-    { id: 7, name: "Jute Rope", category: "Jute Products", image: ropeImage },
-    { id: 8, name: "Storage Bag", category: "Jute Products", image: storageBagImage }
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const categories = ["All", "Jute Products", "Textiles & Fabrics", "Industrial Equipment"];
 
-  const filteredProducts = selectedCategory === "All" 
-    ? products 
-    : products.filter(product => product.category === selectedCategory);
+  // Map image string from DB to actual imported image
+  const imageMap = useMemo(
+    () => ({
+      "bag.png": bagImage,
+      "basket.png": basketImage,
+      "decorative_item.png": decorativeItemImage,
+      "gift.png": giftImage,
+      "items.png": itemsImage,
+      "map.png": mapImage,
+      "rope.png": ropeImage,
+      "storagebag.png": storageBagImage,
+    }),
+    []
+  );
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const params =
+          selectedCategory && selectedCategory !== "All"
+            ? `?category=${encodeURIComponent(selectedCategory)}`
+            : "";
+
+       const res = await fetch(`http://localhost:3000/api/products${params}`);
+        if (!res.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        const data = await res.json();
+        setProducts(data);
+      } catch (err) {
+        setError(err.message || "Something went wrong");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [selectedCategory]);
+
+  const filteredProducts = products; // backend already filtered
 
   return (
     <section className="py-27 bg-emerald-50">
@@ -41,18 +74,23 @@ const Products = () => {
         {/* Filter Dropdown */}
         <div className="mb-10 flex justify-center">
           <div className="relative">
-            <button 
-              onClick={() => setIsOpen(!isOpen)} 
+            <button
+              onClick={() => setIsOpen(!isOpen)}
               className="bg-white border border-emerald-200 rounded-xl px-6 py-3 text-lg font-semibold text-emerald-900 shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
             >
               {selectedCategory} ({filteredProducts.length})
-              <svg className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className={`w-5 h-5 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             {isOpen && (
               <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-emerald-200 rounded-2xl shadow-2xl z-10">
-                {categories.map(category => (
+                {categories.map((category) => (
                   <button
                     key={category}
                     onClick={() => {
@@ -69,36 +107,46 @@ const Products = () => {
           </div>
         </div>
 
-        {/* Products Grid - 2 columns mobile, 3 desktop */}
+        {/* Loading & Error */}
+        {loading && <p className="text-center text-emerald-700 mb-4">Loading products...</p>}
+        {error && <p className="text-center text-red-600 mb-4">{error}</p>}
+
+        {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-          {filteredProducts.map((product) => (
-            <div 
-              key={product.id} 
-              className="group bg-white rounded-2xl p-3 sm:p-4 lg:p-6 border border-emerald-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
-            >
-              {/* Ultra-small images for mobile 2-col layout */}
-              <div className="w-full h-20 sm:h-24 lg:h-32 xl:h-36 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-lg overflow-hidden mb-2 sm:mb-3 lg:mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  onError={(e) => { 
-                    e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRTVFRkYxIi8+PHRleHQgeD0iNTAlIiB5PSI5MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI5IiBmaWxsPSIjRTJFMkUyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JbWFnZTwvdGV4dD48L3N2Zz4=';
-                  }}
-                />
+          {filteredProducts.map((product) => {
+            const imgSrc = product.image ? imageMap[product.image] : null;
+            return (
+              <div
+                key={product._id || product.id}
+                className="group bg-white rounded-2xl p-3 sm:p-4 lg:p-6 border border-emerald-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+              >
+                {/* Image */}
+                <div className="w-full h-20 sm:h-24 lg:h-32 xl:h-36 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-lg overflow-hidden mb-2 sm:mb-3 lg:mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all">
+                  {imgSrc ? (
+                    <img
+                      src={imgSrc}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-xs text-emerald-700">
+                      No Image
+                    </div>
+                  )}
+                </div>
+
+                <h3 className="text-sm sm:text-base lg:text-lg font-bold text-emerald-900 mb-1 sm:mb-2 group-hover:text-emerald-800 transition-colors line-clamp-2">
+                  {product.name}
+                </h3>
+                <p className="text-emerald-700 text-xs sm:text-sm font-medium mb-1">
+                  {product.category}
+                </p>
+                <p className="text-emerald-600 text-xs leading-tight line-clamp-2">
+                  {product.description}
+                </p>
               </div>
-              
-              <h3 className="text-sm sm:text-base lg:text-lg font-bold text-emerald-900 mb-1 sm:mb-2 group-hover:text-emerald-800 transition-colors line-clamp-2">
-                {product.name}
-              </h3>
-              <p className="text-emerald-700 text-xs sm:text-sm font-medium mb-1">
-                {product.category}
-              </p>
-              <p className="text-emerald-600 text-xs leading-tight line-clamp-2">
-                {product.description}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
