@@ -18,7 +18,7 @@ const Products = () => {
 
   const categories = ["All", "Jute Products", "Textiles & Fabrics", "Industrial Equipment"];
 
-  // Map image string from DB to actual imported image
+  // Optional: keep this if some products still use local filenames like "bag.png"
   const imageMap = useMemo(
     () => ({
       "bag.png": bagImage,
@@ -44,10 +44,12 @@ const Products = () => {
             ? `?category=${encodeURIComponent(selectedCategory)}`
             : "";
 
-       const res = await fetch(`http://localhost:3000/api/products${params}`);
+        // Make sure this port matches your backend (3000 as per your setup)
+        const res = await fetch(`http://localhost:3000/api/products${params}`);
         if (!res.ok) {
           throw new Error("Failed to fetch products");
         }
+
         const data = await res.json();
         setProducts(data);
       } catch (err) {
@@ -60,7 +62,8 @@ const Products = () => {
     fetchProducts();
   }, [selectedCategory]);
 
-  const filteredProducts = products; // backend already filtered
+  // Backend already filters, so just use products
+  const filteredProducts = products;
 
   return (
     <section className="py-27 bg-emerald-50">
@@ -114,7 +117,12 @@ const Products = () => {
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {filteredProducts.map((product) => {
-            const imgSrc = product.image ? imageMap[product.image] : null;
+            // If image is a full URL (Cloudinary), use it directly; otherwise fall back to local map
+            const imgSrc =
+              product.image && product.image.startsWith("http")
+                ? product.image
+                : imageMap[product.image] || null;
+
             return (
               <div
                 key={product._id || product.id}
@@ -127,6 +135,7 @@ const Products = () => {
                       src={imgSrc}
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      onError={() => console.log("Broken URL:", imgSrc)}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-xs text-emerald-700">

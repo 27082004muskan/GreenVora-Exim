@@ -128,7 +128,7 @@ const Enquiry = () => {
                 <Mail className="h-5 w-5 mt-1 flex-shrink-0 text-emerald-300" />
                 <div>
                   <h3 className="font-bold text-lg mb-1.5">Email</h3>
-                  <p className="text-emerald-100 text-sm">info@greenvoraexim.com</p>
+                  <p className="text-emerald-100 text-sm">greenvoraexim@gmail.com</p>
                 </div>
               </div>
             </div>
