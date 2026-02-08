@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, Users } from 'lucide-react';
+import { API_BASE } from '../api';
 
 const IconMap = {
   TrendingUp: TrendingUp,
@@ -12,7 +13,7 @@ const Services = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/services')
+    fetch(`${API_BASE}/api/services`)
       .then(res => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();

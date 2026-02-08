@@ -10,8 +10,16 @@ const aboutRoutes = require("./routes/about");
 const serviceRoutes = require("./routes/service");
 const productRoutes = require("./routes/product");
 
-//Middleware
-app.use(cors());
+// CORS: allow frontend (local dev + Render)
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'https://greenvora-exim-frontend.onrender.com'
+];
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 app.use(express.json());
 
 //Routes

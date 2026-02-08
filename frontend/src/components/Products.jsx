@@ -1,5 +1,6 @@
 // src/components/Products.jsx
 import React, { useState, useEffect, useMemo } from "react";
+import { API_BASE } from "../api";
 import bagImage from "../assets/products/bag.png";
 import basketImage from "../assets/products/basket.png";
 import decorativeItemImage from "../assets/products/decorative_item.png";
@@ -44,8 +45,7 @@ const Products = () => {
             ? `?category=${encodeURIComponent(selectedCategory)}`
             : "";
 
-        // Make sure this port matches your backend (3000 as per your setup)
-        const res = await fetch(`http://localhost:3000/api/products${params}`);
+        const res = await fetch(`${API_BASE}/api/products${params}`);
         if (!res.ok) {
           throw new Error("Failed to fetch products");
         }

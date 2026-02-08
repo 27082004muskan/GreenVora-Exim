@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import heroImage from '../../assets/heroimg.jpg';
+import { API_BASE } from '../../api';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const Hero = () => {
 
 
   useEffect(() => {
-    fetch('/api/hero')
+    fetch(`${API_BASE}/api/hero`)
       .then(res => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();

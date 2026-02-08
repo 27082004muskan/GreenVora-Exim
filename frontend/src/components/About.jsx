@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import aimImage from '../assets/aim.png';
 import visionImage from '../assets/vision.png';
+import { API_BASE } from '../api';
 const About = () => {
   const [aboutData, setAboutData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/about/')
+    fetch(`${API_BASE}/api/about/`)
       .then(res => res.json())
       .then(data => {
         setAboutData(data);

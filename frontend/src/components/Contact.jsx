@@ -1,6 +1,7 @@
 import { Mail, MapPin, Phone } from 'lucide-react';
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { API_BASE } from '../api';
 
 const Enquiry = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -14,7 +15,7 @@ const Enquiry = () => {
     }
     setLoading(true);
     try {
-      const response = await fetch('/api/enquiry', {
+      const response = await fetch(`${API_BASE}/api/enquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
