@@ -28,7 +28,7 @@ const Hero = () => {
 
   if (loading) {
     return (
-      <div className="h-[calc(100vh-5rem)] flex items-center justify-center bg-gradient-to-br from-emerald-900 to-emerald-800">
+      <div className="h-[calc(100vh-5rem)] flex items-center justify-center bg-linear-to-br from-emerald-900 to-emerald-800">
         <div className="text-white text-xl">Loading Hero...</div>
       </div>
     );
@@ -39,7 +39,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative h-[calc(100vh-5rem)] overflow-hidden bg-[linear-gradient(135deg,#022c22_0%,#065f46_40%,#22c55e_100%)] pt-20"
+      className="relative h-[calc(100vh-5rem)] overflow-hidden bg-[linear-gradient(135deg,#022c22_0%,#065f46_40%,#22c55e_100%)] pt-0"
     >
       <div className="absolute inset-0 bg-black/45"></div>
 

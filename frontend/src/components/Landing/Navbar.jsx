@@ -17,28 +17,30 @@ const productsSubLinks = [
 
 const Navbar = ({ scrollToSection }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
+  const [showProductsDropdown, setShowProductsDropdown] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isActive = (path) => location.pathname === path || (path === '/products' && location.pathname.startsWith('/products/'));
+  const isActive = (path) => 
+    location.pathname === path || 
+    (path === '/products' && location.pathname.startsWith('/products/'));
 
   const handleLinkClick = (link) => {
     if (link.id === 'home') {
       location.pathname === '/' && scrollToSection ? scrollToSection('home') : navigate('/');
     } else if (link.id === 'products') {
-      navigate('/products/international');  // Direct to international
+      navigate('/products/international');
     } else {
       navigate(link.path);
     }
     setIsMenuOpen(false);
-    setProductsOpen(false);
+    setShowProductsDropdown(false);
   };
 
   const handleSubClick = (subLink) => {
     navigate(subLink.path);
     setIsMenuOpen(false);
-    setProductsOpen(false);
+    setShowProductsDropdown(false);
   };
 
   return (
@@ -48,37 +50,54 @@ const Navbar = ({ scrollToSection }) => {
           {/* Logo */}
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleLinkClick(navLinks[0])}>
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white text-lg font-bold shadow-sm">GE</div>
-            <span className="ml-1 text-xl font-bold bg-linear-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent tracking-wide select-none">Expo</span>
+            <span className="ml-1 text-xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent tracking-wide select-none">Expo</span>
           </div>
 
-          {/* Desktop */}
-          <div className="hidden md:flex items-center gap-6 relative">
+          {/* Desktop - HOVER DROPDOWN (NO DASH) */}
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               link.hasDropdown ? (
-                <div key={link.id} className="relative group">
+                <div 
+                  key={link.id}
+                  className="relative"
+                  onMouseEnter={() => setShowProductsDropdown(true)}
+                  onMouseLeave={() => setShowProductsDropdown(false)}
+                >
                   <button
                     onClick={() => handleLinkClick(link)}
-                    className={`flex items-center gap-1 px-3 py-2 text-base font-medium transition-all ${isActive(link.path) ? 'text-emerald-700 after:scale-x-100' : 'hover:text-emerald-700 after:scale-x-0 hover:after:scale-x-100'} after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[3px] after:bg-linear-to-r after:from-emerald-500 after:to-emerald-400 after:transition-transform after:rounded-full`}
+                    className={`flex items-center gap-1 px-3 py-2 text-base font-medium transition-all rounded-lg hover:bg-emerald-50 ${
+                      isActive(link.path) ? 'text-emerald-700 bg-emerald-50 font-semibold' : ''
+                    }`}
                   >
-                    {link.label} <ChevronDown className="h-4 w-4 group-hover:rotate-180" />
+                    {link.label} 
+                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showProductsDropdown ? 'rotate-180' : ''}`} />
                   </button>
-                  <div className="absolute top-full left-0 mt-2 bg-white/95 backdrop-blur-xl border border-emerald-100 shadow-xl rounded-3xl py-2 min-w-40 z-60">
-                    {productsSubLinks.map((sub) => (
-                      <button
-                        key={sub.id}
-                        onClick={() => handleSubClick(sub)}
-                        className={`block w-full text-left px-4 py-2 text-sm font-medium  hover:bg-emerald-50 transition-colors rounded-lg ${location.pathname === sub.path ? 'bg-emerald-100 text-emerald-700' : 'text-emerald-900'}`}
-                      >
-                        {sub.label}
-                      </button>
-                    ))}
-                  </div>
+                  
+                  {showProductsDropdown && (
+                    <div className="absolute top-full left-0 mt-2 bg-white/95 backdrop-blur-xl border border-emerald-100 shadow-xl rounded-3xl py-2 min-w-40 z-50">
+                      {productsSubLinks.map((sub) => (
+                        <button
+                          key={sub.id}
+                          onClick={() => handleSubClick(sub)}
+                          className={`block w-full text-left px-4 py-2 text-sm font-medium hover:bg-emerald-50 transition-colors rounded-lg ${
+                            location.pathname === sub.path 
+                              ? 'bg-emerald-100 text-emerald-700 font-semibold' 
+                              : 'text-emerald-900'
+                          }`}
+                        >
+                          {sub.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <button
                   key={link.id}
                   onClick={() => handleLinkClick(link)}
-                  className={`px-3 py-2 text-base font-medium transition-all ${isActive(link.path) ? 'text-emerald-700 after:scale-x-100' : 'hover:text-emerald-700 after:scale-x-0 hover:after:scale-x-100'} after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[3px] after:bg-linear-to-r after:from-emerald-500 after:to-emerald-400 after:transition-transform after:rounded-full`}
+                  className={`px-3 py-2 text-base font-medium transition-all rounded-lg hover:bg-emerald-50 ${
+                    isActive(link.path) ? 'text-emerald-700 bg-emerald-50 font-semibold' : ''
+                  }`}
                 >
                   {link.label}
                 </button>
@@ -87,7 +106,10 @@ const Navbar = ({ scrollToSection }) => {
           </div>
 
           {/* Mobile toggle */}
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2 rounded-full hover:bg-emerald-50">
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)} 
+            className="md:hidden p-2 rounded-full hover:bg-emerald-50 transition-colors"
+          >
             {isMenuOpen ? <X className="h-6 w-6 text-emerald-800" /> : <Menu className="h-6 w-6 text-emerald-800" />}
           </button>
         </div>
@@ -101,30 +123,24 @@ const Navbar = ({ scrollToSection }) => {
               link.hasDropdown ? (
                 <div key={link.id}>
                   <button
-                    onClick={() => setProductsOpen(!productsOpen)}
-                    className={`w-full text-left py-3 px-4 rounded-2xl flex items-center justify-between font-medium transition-all ${isActive(link.path) ? 'text-emerald-700 bg-emerald-50 border-l-4 border-emerald-500' : 'text-emerald-900 hover:bg-emerald-50 hover:border-l-4 hover:border-emerald-400'}`}
+                    className={`w-full text-left py-3 px-4 rounded-2xl flex items-center justify-between font-medium transition-all ${
+                      isActive(link.path) 
+                        ? 'text-emerald-700 bg-emerald-50 border-l-4 border-emerald-500' 
+                        : 'text-emerald-900 hover:bg-emerald-50 hover:border-l-4 hover:border-emerald-400'
+                    }`}
                   >
-                    {link.label} <ChevronDown className={`h-5 w-5 ${productsOpen ? 'rotate-180' : ''}`} />
+                    {link.label} <ChevronDown className="h-5 w-5" />
                   </button>
-                  {productsOpen && (
-                    <div className="pl-6 space-y-1 mt-2 border-l-2 border-emerald-200">
-                      {productsSubLinks.map((sub) => (
-                        <button
-                          key={sub.id}
-                          onClick={() => handleSubClick(sub)}
-                          className={`block w-full text-left py-2 px-3 text-sm rounded-xl ${location.pathname === sub.path ? 'text-emerald-700 bg-emerald-100 font-semibold' : 'text-emerald-900 hover:bg-emerald-50'}`}
-                        >
-                          {sub.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
                 </div>
               ) : (
                 <button
                   key={link.id}
                   onClick={() => handleLinkClick(link)}
-                  className={`block w-full text-left py-3 px-4 rounded-2xl font-medium transition-all ${isActive(link.path) ? 'text-emerald-700 bg-emerald-50 border-l-4 border-emerald-500' : 'text-emerald-900 hover:bg-emerald-50 hover:border-l-4 hover:border-emerald-400'}`}
+                  className={`block w-full text-left py-3 px-4 rounded-2xl font-medium transition-all ${
+                    isActive(link.path) 
+                      ? 'text-emerald-700 bg-emerald-50 border-l-4 border-emerald-500' 
+                      : 'text-emerald-900 hover:bg-emerald-50 hover:border-l-4 hover:border-emerald-400'
+                  }`}
                 >
                   {link.label}
                 </button>

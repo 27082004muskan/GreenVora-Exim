@@ -9,6 +9,8 @@ const heroRoutes = require("./routes/hero");
 const aboutRoutes = require("./routes/about");
 const serviceRoutes = require("./routes/service");
 const productRoutes = require("./routes/product");
+const domesticRoutes = require("./routes/domestic");
+
 
 // CORS: allow frontend (local dev + Render)
 const allowedOrigins = [
@@ -28,6 +30,9 @@ app.use("/api/hero", heroRoutes);
 app.use("/api/about", aboutRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/products", productRoutes);
+// Add with your other routes (around line 40-50):
+app.use('/api/domestic-products',domesticRoutes);
+
 
 // Global error handler - YE ADD KARO (app ke baad)
 app.use((err, req, res, next) => {
