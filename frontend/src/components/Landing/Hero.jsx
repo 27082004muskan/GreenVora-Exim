@@ -39,13 +39,13 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative h-[calc(100vh-5rem)] overflow-hidden bg-[linear-gradient(135deg,#022c22_0%,#065f46_40%,#22c55e_100%)] pt-0"
+      className="relative h-[calc(100vh-5rem)] overflow-hidden bg-[linear-gradient(135deg,#022c22_0%,#065f46_40%,#22c55e_100%)]"
     >
       <div className="absolute inset-0 bg-black/45"></div>
 
       <div className="relative z-10 h-full flex flex-col lg:flex-row items-center lg:items-center justify-center lg:justify-between px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto gap-4 sm:gap-6 lg:gap-8">
         {/* Left Side: Dynamic Text */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center pt-4 sm:pt-6 md:pt-8 lg:pt-0">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center pt-0 sm:pt-6 ">
           <div className="max-w-lg text-center lg:text-left mx-auto lg:mx-0">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-5 leading-tight">
               {title || 'GREENVORA EXIM'}
@@ -78,7 +78,7 @@ const Hero = () => {
 
         {/* Right Side: Image (Desktop) */}
         <div className="hidden lg:flex w-1/2 h-full items-center justify-end">
-          <div className="relative w-full max-w-lg h-[320px]">
+          <div className="relative w-full max-w-lg h-80">
             <img
               src={heroImage}
               alt="GreenVora Exim - Global Trade & Sustainability"
