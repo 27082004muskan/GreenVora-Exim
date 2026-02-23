@@ -69,7 +69,7 @@ const Products = () => {
     <section className="py-27 bg-emerald-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent mb-6">
+          <h1 className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent mb-6">
             International Products
           </h1>
         </div>
@@ -129,7 +129,7 @@ const Products = () => {
                 className="group bg-white rounded-2xl p-3 sm:p-4 lg:p-6 border border-emerald-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
               >
                 {/* Image */}
-                <div className="w-full h-20 sm:h-24 lg:h-32 xl:h-36 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-lg overflow-hidden mb-2 sm:mb-3 lg:mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all">
+                <div className="w-full h-20 sm:h-24 lg:h-32 xl:h-36 bg-linear-to-br from-emerald-100 to-emerald-200 rounded-lg overflow-hidden mb-2 sm:mb-3 lg:mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all">
                   {imgSrc ? (
                     <img
                       src={imgSrc}

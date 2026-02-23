@@ -48,7 +48,7 @@ const Navbar = ({ scrollToSection }) => {
           {/* Logo */}
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleLinkClick(navLinks[0])}>
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white text-lg font-bold shadow-sm">GE</div>
-            <span className="ml-1 text-xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent tracking-wide select-none">Expo</span>
+            <span className="ml-1 text-xl font-bold bg-linear-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent tracking-wide select-none">Expo</span>
           </div>
 
           {/* Desktop */}
@@ -58,11 +58,11 @@ const Navbar = ({ scrollToSection }) => {
                 <div key={link.id} className="relative group">
                   <button
                     onClick={() => handleLinkClick(link)}
-                    className={`flex items-center gap-1 px-3 py-2 text-base font-medium transition-all ${isActive(link.path) ? 'text-emerald-700 after:scale-x-100' : 'hover:text-emerald-700 after:scale-x-0 hover:after:scale-x-100'} after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[3px] after:bg-gradient-to-r after:from-emerald-500 after:to-emerald-400 after:transition-transform after:rounded-full`}
+                    className={`flex items-center gap-1 px-3 py-2 text-base font-medium transition-all ${isActive(link.path) ? 'text-emerald-700 after:scale-x-100' : 'hover:text-emerald-700 after:scale-x-0 hover:after:scale-x-100'} after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[3px] after:bg-linear-to-r after:from-emerald-500 after:to-emerald-400 after:transition-transform after:rounded-full`}
                   >
                     {link.label} <ChevronDown className="h-4 w-4 group-hover:rotate-180" />
                   </button>
-                  <div className="absolute top-full left-0 mt-2 bg-white/95 backdrop-blur-xl border border-emerald-100 shadow-xl rounded-3xl py-2 min-w-[160px] z-[60]">
+                  <div className="absolute top-full left-0 mt-2 bg-white/95 backdrop-blur-xl border border-emerald-100 shadow-xl rounded-3xl py-2 min-w-40 z-60">
                     {productsSubLinks.map((sub) => (
                       <button
                         key={sub.id}
@@ -78,7 +78,7 @@ const Navbar = ({ scrollToSection }) => {
                 <button
                   key={link.id}
                   onClick={() => handleLinkClick(link)}
-                  className={`px-3 py-2 text-base font-medium transition-all ${isActive(link.path) ? 'text-emerald-700 after:scale-x-100' : 'hover:text-emerald-700 after:scale-x-0 hover:after:scale-x-100'} after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[3px] after:bg-gradient-to-r after:from-emerald-500 after:to-emerald-400 after:transition-transform after:rounded-full`}
+                  className={`px-3 py-2 text-base font-medium transition-all ${isActive(link.path) ? 'text-emerald-700 after:scale-x-100' : 'hover:text-emerald-700 after:scale-x-0 hover:after:scale-x-100'} after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[3px] after:bg-linear-to-r after:from-emerald-500 after:to-emerald-400 after:transition-transform after:rounded-full`}
                 >
                   {link.label}
                 </button>

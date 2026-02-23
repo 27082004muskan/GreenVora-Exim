@@ -12,7 +12,7 @@ import Services from './components/Services';
 
 // Fixed Layout - added min-h-screen and flex-col
 const Layout = ({ children }) => (
-  <div className="min-h-screen flex flex-col bg-gradient-to-br from-emerald-50 to-emerald-100">
+  <div className="min-h-screen flex flex-col bg-linear-to-br from-emerald-50 to-emerald-100">
     <Navbar />
     <div className="flex-1 pt-20">{children}</div>
     <Footer />
@@ -53,7 +53,7 @@ const LearnMorePage = () => (
 
 // Products Layout
 const ProductsLayout = () => (
-  <div className="min-h-screen flex flex-col bg-gradient-to-br from-emerald-50 to-emerald-100">
+  <div className="min-h-screen flex flex-col bg-linear-to-br from-emerald-50 to-emerald-100">
     <Navbar />
     <div className="flex-1 pt-20">
       <Outlet />
