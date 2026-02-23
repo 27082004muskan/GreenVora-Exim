@@ -1,8 +1,8 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-
+import { Route, Routes, Outlet } from 'react-router-dom';
 import About from './components/About';
 import Contact from './components/Contact';
+import DomesticProducts from './components/Domestic_Products';
 import Footer from './components/Footer';
 import Hero from './components/Landing/Hero';
 import Navbar from './components/Landing/Navbar';
@@ -10,65 +10,56 @@ import LearnMore from './components/LearnMore';
 import Products from './components/Products';
 import Services from './components/Services';
 
-// HOME (landing) page – yahi tumhara current layout hai
-const HomePage = () => {
-  return (
-    <>
-      <Navbar /> {/* ab scrollToSection pass nahi karna */}
-      <Hero />     {/* yahan bhi prop hatado */}
-      <Footer />
-    </>
-  );
-};
-
-
-// Simple wrapper pages – existing components reuse
-const AboutPage = () => (
-  <>
+// Fixed Layout - added min-h-screen and flex-col
+const Layout = ({ children }) => (
+  <div className="min-h-screen flex flex-col bg-gradient-to-br from-emerald-50 to-emerald-100">
     <Navbar />
-    <div className="pt-20">
-      <About />
-      <Footer />
-    </div>
-  </>
+    <div className="flex-1 pt-20">{children}</div>
+    <Footer />
+  </div>
+);
+
+// HOME page
+const HomePage = () => (
+  <Layout>
+    <Hero />
+  </Layout>
+);
+
+// Simple pages
+const AboutPage = () => (
+  <Layout>
+    <About />
+  </Layout>
 );
 
 const ServicesPage = () => (
-  <div className="min-h-screen flex flex-col bg-gradient-to-br from-emerald-50 to-emerald-100">
-    <Navbar />
-    <div className="flex-1">
-      <Services />
-    </div>
-    <Footer />
-  </div>
-);
-
-const ProductsPage = () => (
-  <div className="min-h-screen flex flex-col bg-gradient-to-br from-emerald-50 to-emerald-100">
-    <Navbar />
-    <div className="flex-1">
-      <Products />
-    </div>
-    <Footer />
-  </div>
+  <Layout>
+    <Services />
+  </Layout>  
 );
 
 const ContactPage = () => (
-  <>
-    <Navbar />
-    <div className="pt-20">
-      <Contact />
-      <Footer />
-    </div>
-  </>
+  <Layout>
+    <Contact />
+  </Layout>
 );
 
 const LearnMorePage = () => (
-  <>
-    <Navbar />
+  <Layout>
     <LearnMore />
+  </Layout>
+);
+
+// Products Layout
+const ProductsLayout = () => (
+  <div className="min-h-screen flex flex-col bg-gradient-to-br from-emerald-50 to-emerald-100">
+    <Navbar />
+    <div className="flex-1 pt-20">
+      <Outlet />
+    </div>
     <Footer />
-  </>
+  </div>
 );
 
 function App() {
@@ -77,7 +68,14 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/services" element={<ServicesPage />} />
-      <Route path="/products" element={<ProductsPage />} />
+      
+      {/* Fixed Products routes - Products shows on BOTH index AND international */}
+      <Route path="/products" element={<ProductsLayout />}>
+        <Route index element={<Products />} />                    {/* /products */}
+        <Route path="domestic" element={<DomesticProducts />} />  {/* /products/domestic */}
+        <Route path="international" element={<Products />} />    {/* /products/international - SAME Products */}
+      </Route>
+      
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/learn-more" element={<LearnMorePage />} />
     </Routes>
