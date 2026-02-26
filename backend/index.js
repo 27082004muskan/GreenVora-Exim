@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const path = require("path");  // ← Added for static files
+const path = require("path");
+const fs = require("fs");
 const app = express();
 
 require("dotenv").config();
@@ -55,16 +56,15 @@ app.use("/api/services", serviceRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/domestic-products", domesticRoutes);
 
-// ✅ SINGLE DOMAIN SETUP - Frontend static files (PRODUCTION ONLY)
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'dist')));  // Vite build folder
-  // Agar Create React App use kar rahi ho to 'build' use karo:
-  // app.use(express.static(path.join(__dirname, 'build')));
-  
-  // Catch-all route for React Router (Express 5 compatibility)
-  // RegExp routes are supported; string wildcards like '*' or '/(.*)' crash in Express 5.
+// If you want to serve a built frontend from the backend, enable it explicitly.
+// On Render you're deploying frontend separately, so keep this OFF to avoid `dist/index.html` ENOENT errors.
+const distIndex = path.join(__dirname, "dist", "index.html");
+if (process.env.SERVE_FRONTEND === "true" && fs.existsSync(distIndex)) {
+  app.use(express.static(path.join(__dirname, "dist")));
+
+  // Catch-all route for SPA routing (Express 5 safe)
   app.get(/.*/, (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+    res.sendFile(distIndex);
   });
 }
 
