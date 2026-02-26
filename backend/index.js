@@ -45,8 +45,8 @@ if (process.env.NODE_ENV === 'production') {
   // Agar Create React App use kar rahi ho to 'build' use karo:
   // app.use(express.static(path.join(__dirname, 'build')));
   
-  // Catch-all route for React Router (LAST API route ke baad)
-  app.get('*', (req, res) => {
+  // Catch-all route for React Router (Express 5 needs named wildcard, not '*')
+  app.get('/(.*)', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
   });
 }
