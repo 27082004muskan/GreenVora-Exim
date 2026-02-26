@@ -15,19 +15,35 @@ const serviceRoutes = require("./routes/service");
 const productRoutes = require("./routes/product");
 const domesticRoutes = require("./routes/domestic");
 
-// ✅ CORS: Updated for custom domain + local
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://127.0.0.1:5173',
-  'https://greenvora-exim-frontend.onrender.com',
-  'https://greenvoraexim.com',
-  'https://www.greenvoraexim.com'
-];
+// ✅ CORS: allow local + Render + your custom domains
+// Use hostname-based matching to avoid issues with ports / minor origin variations.
+const allowedHostnames = new Set([
+  "localhost",
+  "127.0.0.1",
+  "greenvora-exim-frontend.onrender.com",
+  "greenvoraexim.com",
+  "www.greenvoraexim.com",
+]);
 
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      // allow requests with no origin (curl, server-to-server)
+      if (!origin) return cb(null, true);
+      try {
+        const url = new URL(origin);
+        if (allowedHostnames.has(url.hostname)) {
+          // Return the exact origin so Access-Control-Allow-Origin is set correctly
+          return cb(null, origin);
+        }
+      } catch (_) {
+        // fall through
+      }
+      return cb(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
@@ -45,8 +61,9 @@ if (process.env.NODE_ENV === 'production') {
   // Agar Create React App use kar rahi ho to 'build' use karo:
   // app.use(express.static(path.join(__dirname, 'build')));
   
-  // Catch-all route for React Router (Express 5 needs named wildcard, not '*')
-  app.get('/(.*)', (req, res) => {
+  // Catch-all route for React Router (Express 5 compatibility)
+  // RegExp routes are supported; string wildcards like '*' or '/(.*)' crash in Express 5.
+  app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
   });
 }
@@ -64,11 +81,11 @@ app.use((err, req, res, next) => {
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ Mongodb Connected"))
-  .catch((err) => console.error("❌ Mongo err:", err));
+  .then(() => console.log("Mongodb Connected"))
+  .catch((err) => console.error(" Mongo err:", err));
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`🌐 Production mode: ${process.env.NODE_ENV === 'production'}`);
+  console.log(`Server running on port ${PORT}`);
+  console.log(`Production mode: ${process.env.NODE_ENV === 'production'}`);
 });
