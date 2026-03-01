@@ -21,7 +21,7 @@ const Layout = ({ children }) => (
 const ProductsLayout = () => (
   <div className="min-h-screen flex flex-col bg-transparent">
     <Navbar />
-    <div className="flex-1 pt-20">
+    <div className="flex-1">
       <Outlet />
     </div>
     <Footer />
