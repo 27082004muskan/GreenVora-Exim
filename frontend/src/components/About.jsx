@@ -21,7 +21,7 @@ const About = () => {
   const { heading, aboutUs, vision } = aboutData || {};
 
   return (
-    <section className="py-20 bg-emerald-50">
+    <section className="py-28 bg-emerald-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 sm:mb-20">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-linear-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent mb-6">

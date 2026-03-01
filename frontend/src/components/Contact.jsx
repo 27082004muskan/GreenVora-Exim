@@ -38,7 +38,7 @@ const Enquiry = () => {
   return (
     <section
       id="contact"
-      className="min-h-screen -mt-[80px] pt-[150px] pb-20 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 relative"
+      className="min-h-screen -mt-[80px] pt-[200px] pb-20 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 relative"
     >
       <Toaster position="top-right" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

@@ -10,50 +10,16 @@ import LearnMore from './components/LearnMore';
 import Products from './components/Products';
 import Services from './components/Services';
 
-// Fixed Layout - added min-h-screen and flex-col
 const Layout = ({ children }) => (
-  <div className="min-h-screen flex flex-col bg-linear-to-br from-emerald-50 to-emerald-100">
+  <div className="min-h-screen flex flex-col bg-transparent">
     <Navbar />
-    <div className="flex-1 pt-20">{children}</div>
+    <div className="flex-1">{children}</div>
     <Footer />
   </div>
 );
 
-// HOME page
-const HomePage = () => (
-  <Layout>
-    <Hero />
-  </Layout>
-);
-
-// Simple pages
-const AboutPage = () => (
-  <Layout>
-    <About />
-  </Layout>
-);
-
-const ServicesPage = () => (
-  <Layout>
-    <Services />
-  </Layout>  
-);
-
-const ContactPage = () => (
-  <Layout>
-    <Contact />
-  </Layout>
-);
-
-const LearnMorePage = () => (
-  <Layout>
-    <LearnMore />
-  </Layout>
-);
-
-// Products Layout
 const ProductsLayout = () => (
-  <div className="min-h-screen flex flex-col bg-linear-to-br from-emerald-50 to-emerald-100">
+  <div className="min-h-screen flex flex-col bg-transparent">
     <Navbar />
     <div className="flex-1 pt-20">
       <Outlet />
@@ -69,11 +35,10 @@ function App() {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/services" element={<ServicesPage />} />
       
-      {/* Fixed Products routes - Products shows on BOTH index AND international */}
       <Route path="/products" element={<ProductsLayout />}>
-        <Route index element={<Products />} />                    {/* /products */}
-        <Route path="domestic" element={<DomesticProducts />} />  {/* /products/domestic */}
-        <Route path="international" element={<Products />} />    {/* /products/international - SAME Products */}
+        <Route index element={<Products />} />
+        <Route path="domestic" element={<DomesticProducts />} />
+        <Route path="international" element={<Products />} />
       </Route>
       
       <Route path="/contact" element={<ContactPage />} />
@@ -81,5 +46,35 @@ function App() {
     </Routes>
   );
 }
+
+const HomePage = () => (
+  <Layout>
+    <Hero />
+  </Layout>
+);
+
+const AboutPage = () => (
+  <Layout>
+    <About />
+  </Layout>
+);
+
+const ServicesPage = () => (
+  <Layout>
+    <Services />
+  </Layout>
+);
+
+const ContactPage = () => (
+  <Layout>
+    <Contact />
+  </Layout>
+);
+
+const LearnMorePage = () => (
+  <Layout>
+    <LearnMore />
+  </Layout>
+);
 
 export default App;
