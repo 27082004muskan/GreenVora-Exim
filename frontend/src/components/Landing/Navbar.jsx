@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import logo from '../../assets/logo.jpeg';
 
 const navLinks = [
   { id: 'home', label: 'Home', path: '/' },
@@ -48,10 +49,15 @@ const Navbar = ({ scrollToSection }) => {
       <div className="bg-white/80 backdrop-blur-xl shadow-xl border border-emerald-100 rounded-full px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleLinkClick(navLinks[0])}>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white text-lg font-bold shadow-sm">GE</div>
-            <span className="ml-1 text-xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent tracking-wide select-none">Expo</span>
-          </div>
+        <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleLinkClick(navLinks[0])}>
+  <img 
+    src={logo} 
+    alt="GE Expo Logo"
+    className="h-11 w-10 object-cover shadow-sm flex items-center justify-center" 
+  />
+  <span className="ml-1 text-xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent tracking-wide select-none">Expo</span>
+</div>
+
 
           {/* Desktop - HOVER DROPDOWN (NO DASH) */}
           <div className="hidden md:flex items-center gap-6">
