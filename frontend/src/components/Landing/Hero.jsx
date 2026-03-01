@@ -45,7 +45,7 @@ const Hero = () => {
 
       <div className="relative z-10 h-full flex flex-col lg:flex-row items-center lg:items-center justify-center lg:justify-between px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto gap-4 sm:gap-6 lg:gap-8">
         {/* Left Side: Dynamic Text */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center pt-0 sm:pt-6 ">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center pt-20 sm:pt-10 ">
           <div className="max-w-lg text-center lg:text-left mx-auto lg:mx-0">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-5 leading-tight">
               {title || 'GREENVORA EXIM'}
