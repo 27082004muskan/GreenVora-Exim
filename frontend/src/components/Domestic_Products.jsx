@@ -55,8 +55,8 @@ const DomesticProducts = () => {
 
         {/* Filters */}
         <div className="mb-10">
-          {/* Mobile: pill chips row */}
-          <div className="flex md:hidden gap-2 overflow-x-auto pb-1 -mx-4 px-4">
+          {/* Mobile: pill chips row (no scrollbar) */}
+          <div className="flex md:hidden flex-wrap gap-2 justify-center">
             {categories.map((category) => (
               <button
                 key={category}
