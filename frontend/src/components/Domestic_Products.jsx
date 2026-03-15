@@ -53,39 +53,61 @@ const DomesticProducts = () => {
           </h1>
         </div>
 
-        {/* Filter Dropdown - EXACT SAME */}
-        <div className="mb-10 flex justify-center">
-          <div className="relative">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="bg-white border border-emerald-200 rounded-xl px-6 py-3 text-lg font-semibold text-emerald-900 shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
-            >
-              {selectedCategory} ({filteredProducts.length})
-              <svg
-                className={`w-5 h-5 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+        {/* Filters */}
+        <div className="mb-10">
+          {/* Mobile: pill chips row */}
+          <div className="flex md:hidden gap-2 overflow-x-auto pb-1 -mx-4 px-4">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium border ${
+                  selectedCategory === category
+                    ? "bg-emerald-600 text-white border-emerald-600"
+                    : "bg-white text-emerald-900 border-emerald-200"
+                }`}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            {isOpen && (
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-emerald-200 rounded-2xl shadow-2xl z-10">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => {
-                      setSelectedCategory(category);
-                      setIsOpen(false);
-                    }}
-                    className="w-full text-left px-6 py-3 text-emerald-900 hover:bg-emerald-50 font-medium rounded-xl transition-all block"
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            )}
+                {category}
+              </button>
+            ))}
+          </div>
+
+          {/* Desktop: centered dropdown */}
+          <div className="hidden md:flex justify-center mt-4">
+            <div className="relative">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="bg-white border border-emerald-200 rounded-xl px-6 py-3 text-lg font-semibold text-emerald-900 shadow-lg hover:shadow-xl transition-all flex items-center gap-2 min-w-[220px] justify-between"
+              >
+                <span>
+                  {selectedCategory} ({filteredProducts.length})
+                </span>
+                <svg
+                  className={`w-5 h-5 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {isOpen && (
+                <div className="absolute top-full left-0 mt-2 w-full bg-white border border-emerald-200 rounded-2xl shadow-2xl z-10">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => {
+                        setSelectedCategory(category);
+                        setIsOpen(false);
+                      }}
+                      className="w-full text-left px-6 py-3 text-emerald-900 hover:bg-emerald-50 font-medium transition-all"
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
