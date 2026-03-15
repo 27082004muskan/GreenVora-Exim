@@ -5,34 +5,29 @@ import { API_BASE } from '../../api';
 
 const Hero = () => {
   const navigate = useNavigate();
-  const [heroData, setHeroData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
+  // Show a fast static hero immediately; API just enhances it when ready
+  const [heroData, setHeroData] = useState({
+    title: 'GREENVORA EXIM',
+    subtitle: 'Empowering Global Trade & Trusted Sourcing',
+    description:
+      'Helping businesses find comprehensive export and sourcing solutions worldwide with a focus on quality, reliability, and sustainable partnerships.',
+    cta1: { text: 'Learn More', path: '/learn-more' },
+    cta2: { text: 'Contact Us', path: '/contact' },
+  });
 
   useEffect(() => {
     fetch(`${API_BASE}/api/hero`)
-      .then(res => {
+      .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
       })
-      .then(data => {
-        setHeroData(data);
-        setLoading(false);
+      .then((data) => {
+        setHeroData((prev) => ({ ...prev, ...data }));
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Hero fetch error:', err);
-        
-        setLoading(false);
       });
   }, []);
-
-  if (loading) {
-    return (
-      <div className="h-[calc(100vh-5rem)] flex items-center justify-center bg-linear-to-br from-emerald-900 to-emerald-800">
-        <div className="text-white text-xl">Loading Hero...</div>
-      </div>
-    );
-  }
 
   const { title, subtitle, description, cta1, cta2 } = heroData || {};
 
