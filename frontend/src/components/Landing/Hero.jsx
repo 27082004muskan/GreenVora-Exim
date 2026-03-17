@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import heroImage from '../../assets/heroimg.jpg';
 import { API_BASE } from '../../api';
+import heroImage from '../../assets/heroimg.jpg';
 
 const Hero = () => {
   const navigate = useNavigate();

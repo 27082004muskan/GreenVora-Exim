@@ -1,6 +1,6 @@
+import { ChevronDown, Menu, X } from 'lucide-react';
 import React, { useState } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.jpeg';
 
 const navLinks = [
