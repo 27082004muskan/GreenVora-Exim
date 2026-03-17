@@ -17,7 +17,7 @@ const Products = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const categories = ["All", "Jute Products", "Textiles & Fabrics", "Industrial Equipment"];
+  const categories = ["All", "Jute Products", "Handicrafts", "Others"];
 
   // Optional: keep this if some products still use local filenames like "bag.png"
   const imageMap = useMemo(
@@ -70,7 +70,7 @@ const Products = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h1 className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent mb-6">
-            International Products
+            Our Products
           </h1>
         </div>
 

@@ -59,8 +59,8 @@ const Navbar = ({ scrollToSection }) => {
       <div className="flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleLinkClick(navLinks[0])}>
-          <img src={logo} alt="GE Expo Logo" className="h-10 w-10 rounded-full object-cover" />
-          <span className="text-xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent">Expo</span>
+          <img src={logo} alt="GE Expo Logo" className="h-14 w-14 rounded-full object-cover" />
+          <span className="text-2xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent">Greenvora Exim</span>
         </div>
 
         {/* Desktop Links */}
