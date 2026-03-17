@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes, Outlet } from 'react-router-dom';
 import About from './components/About';
 import Contact from './components/Contact';
-import DomesticProducts from './components/Domestic_Products';
+// import DomesticProducts from './components/Domestic_Products';
 import Footer from './components/Footer';
 import Hero from './components/Landing/Hero';
 import Navbar from './components/Landing/Navbar';
@@ -37,8 +37,8 @@ function App() {
       
       <Route path="/products" element={<ProductsLayout />}>
         <Route index element={<Products />} />
-        <Route path="domestic" element={<DomesticProducts />} />
-        <Route path="international" element={<Products />} />
+        {/* <Route path="domestic" element={<DomesticProducts />} /> */}
+        {/* <Route path="international" element={<Products />} /> */}
       </Route>
       
       <Route path="/contact" element={<ContactPage />} />

@@ -7,13 +7,13 @@ const navLinks = [
   { id: 'home', label: 'Home', path: '/' },
   { id: 'about', label: 'About Us', path: '/about' },
   { id: 'services', label: 'Services', path: '/services' },
-  { id: 'products', label: 'Products', path: '/products', hasDropdown: true },
+  { id: 'products', label: 'Products', path: '/products'},
   { id: 'contact', label: 'Contact Us', path: '/contact' },
 ];
 
 const productsSubLinks = [
-  { id: 'domestic', label: 'Domestic', path: '/products/domestic' },
-  { id: 'international', label: 'International', path: '/products/international' },
+  // { id: 'domestic', label: 'Domestic', path: '/products/domestic' },
+  { id: 'international', label: 'International', path: '/products' },
 ];
 
 const Navbar = ({ scrollToSection }) => {
@@ -31,7 +31,7 @@ const Navbar = ({ scrollToSection }) => {
     if (link.id === 'home') {
       location.pathname === '/' && scrollToSection ? scrollToSection('home') : navigate('/');
     } else if (link.id === 'products') {
-      navigate('/products/international');
+      navigate('/products');
     } else {
       navigate(link.path);
     }
