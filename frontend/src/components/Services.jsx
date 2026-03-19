@@ -9,32 +9,35 @@ const IconMap = {
 };
 
 const Services = () => {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Show helpful defaults instantly; API response will replace them
+  const [services, setServices] = useState([
+    {
+      title: 'Exporter Services',
+      description:
+        'We help businesses access global markets with reliable, end-to-end export solutions. Along with a strong focus on eco-friendly jute products—such as jute products, home décor items, handicrafts, etc. From product sourcing and quality inspections to documentation, logistics, and timely delivery, we ensure your shipments are handled with complete professionalism and compliance. With us, exporting becomes smooth, efficient, and worry-free.',
+      icon: 'TrendingUp',
+    },
+    {
+      title: 'Sourcing Agent Services',
+      description:
+        'We act as your on-ground sourcing partner in India—finding the right manufacturers, negotiating the best prices, and ensuring strict quality standards. With transparent communication and supplier verification, we help you source the perfect products without risk, delays, or hidden costs. Your global procurement becomes easier, faster, and more efficient.',
+      icon: 'Users',
+    },
+  ]);
 
   useEffect(() => {
     fetch(`${API_BASE}/api/services`)
-      .then(res => {
+      .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         setServices(data);
-        setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Services fetch error:', err);
-        setLoading(false);
       });
   }, []);
-
-  if (loading) {
-    return (
-      <section className="py-20 bg-white">
-        <div className="text-center">Loading Services...</div>
-      </section>
-    );
-  }
 
   return (
     <section className="py-24 bg-white">

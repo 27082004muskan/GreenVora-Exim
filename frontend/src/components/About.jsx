@@ -2,21 +2,33 @@ import React, { useState, useEffect } from 'react';
 import aimImage from '../assets/aim.png';
 import visionImage from '../assets/vision.png';
 import { API_BASE } from '../api';
+
 const About = () => {
-  const [aboutData, setAboutData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // Show meaningful content immediately; API just enhances it when ready
+  const [aboutData, setAboutData] = useState({
+    heading: 'Welcome To Greenvora Exim',
+    aboutUs: {
+      title: 'About Us',
+      content:
+        'Greenvora Exim is a growing import and export company from India, dedicated to delivering high-quality products with a strong focus on reliability, sustainability, and smooth end-to-end service. We believe in building long-term partnerships through transparent communication, consistent quality, and a customer-first approach. Our commitment to timely deliveries, ethical operations, and dependable support ensures a seamless and trustworthy experience for clients across global markets.',
+    },
+    vision: {
+      title: 'Our Vision',
+      content:
+        'Our vision is to build Greenvora Exim into a trusted global partner known for delivering reliable, sustainable, and high-quality export solutions. We are committed to ethical sourcing, consistent product quality, and a customer-first approach that ensures long-term business success. By expanding our international network, strengthening supply capabilities, and offering value-driven services, we aim to support businesses worldwide with dependable products and seamless import–export experiences. Our focus is on creating meaningful, long-lasting partnerships that contribute to transparent, responsible, and sustainable global trade.',
+    },
+  });
 
   useEffect(() => {
     fetch(`${API_BASE}/api/about/`)
-      .then(res => res.json())
-      .then(data => {
-        setAboutData(data);
-        setLoading(false);
+      .then((res) => res.json())
+      .then((data) => {
+        setAboutData((prev) => ({ ...prev, ...data }));
       })
-      .catch(() => setLoading(false));
+      .catch((err) => {
+        console.error('About fetch error:', err);
+      });
   }, []);
-
-  if (loading) return <div className="py-20 text-center">Loading About...</div>;
 
   const { heading, aboutUs, vision } = aboutData || {};
 
