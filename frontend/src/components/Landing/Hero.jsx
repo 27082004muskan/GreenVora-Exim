@@ -33,7 +33,7 @@ const Hero = () => {
   return (
     <>
       {/* ================= HERO SECTION ================= */}
-      <section className="relative bg-gradient-to-r from-emerald-900 via-emerald-800 to-green-700 text-white py-16 md:py-40 px-4 md:px-24">
+      <section className="relative bg-gradient-to-r from-emerald-900 via-emerald-800 to-green-700 text-white py-16 md:py-20 px-4 md:px-24">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
 
           {/* LEFT CONTENT */}

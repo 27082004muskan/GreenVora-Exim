@@ -8,8 +8,8 @@ exports.getHero=async(req, res)=>{
             title:'GREENVORA EXIM',
             subtitle:'Empowering Global Trade & Trusted Sourcing',
             description: 'Helping businesses find comprehensive export and sourcing solutions worldwide with a focus on quality, reliability, and sustainable partnerships.',
-        cta1: { text: 'Learn More', path: '/learn-more' },
-        cta2: { text: 'Contact Us', path: '/contact' }
+        cta1: { text: 'View Products', path: '/products' },
+        cta2: { text: 'Request a Demo', path: '/contact' }
         };
       }  
       res.json(hero);
