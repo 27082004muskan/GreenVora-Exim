@@ -83,7 +83,7 @@ const Hero = () => {
         </div>
 
         {/* FEATURE STRIP */}
-        <div className="absolute bottom-[-30px] left-1/2 transform -translate-x-1/2 w-[90%] bg-white text-gray-800 rounded-xl shadow-xl flex justify-around py-6 text-20px font-medium">
+        <div className="absolute bottom-[-30px] left-1/2 transform -translate-x-1/2 w-[90%] bg-white text-gray-800 rounded-xl shadow-xl flex justify-around py-6 text-lg font-medium">
           <span>✔ Verified Supplier Network</span>
           <span>✔ Quality Inspection</span>
           <span>✔ Competitive Pricing</span>
