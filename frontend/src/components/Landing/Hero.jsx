@@ -23,7 +23,12 @@ const Hero = () => {
         return res.json();
       })
       .then((data) => {
-        setHeroData((prev) => ({ ...prev, ...data }));
+        setHeroData((prev) => ({
+          ...prev,
+          ...data,
+          cta1: prev.cta1,
+          cta2: prev.cta2,
+        }));
       })
       .catch((err) => console.error('Hero fetch error:', err));
   }, []);
