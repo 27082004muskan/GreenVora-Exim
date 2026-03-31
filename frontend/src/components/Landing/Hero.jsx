@@ -33,20 +33,20 @@ const Hero = () => {
   return (
     <>
       {/* ================= HERO SECTION ================= */}
-      <section className="relative bg-gradient-to-r from-emerald-900 via-emerald-800 to-green-700 text-white py-28 px-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-16 flex flex-col lg:flex-row items-center justify-between gap-10">
+      <section className="relative bg-gradient-to-r from-emerald-900 via-emerald-800 to-green-700 text-white py-16 md:py-40 px-4 md:px-24">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
 
           {/* LEFT CONTENT */}
-          <div className="lg:w-1/2">
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+          <div className="lg:w-1/2 text-center lg:text-left">
+            <h1 className="text-3xl md:text-5xl font-bold  pt-15 leading-tight mb-4">
               {title}
             </h1>
 
-            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-emerald-200">
+            <h2 className="text-xl md:text-3xl font-semibold mb-4 text-emerald-200">
               {subtitle}
             </h2>
 
-            <p className="text-lg text-emerald-50 mb-6">
+            <p className="text-base md:text-lg text-emerald-50 mb-4">
               {description}
             </p>
 
@@ -55,17 +55,17 @@ const Hero = () => {
             </p>
 
             {/* BUTTONS */}
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
               <button
                 onClick={() => navigate('/products')}
-                className="bg-emerald-500 hover:bg-emerald-400 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition"
+                className="bg-emerald-500 hover:bg-emerald-400 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition w-full sm:w-auto"
               >
                 {cta1.text}
               </button>
 
               <button
-                onClick={() => navigate('/contact')} // Request Demo → Contact
-                className="bg-white text-emerald-800 px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-gray-100 transition"
+                onClick={() => navigate('/contact')}
+                className="bg-white text-emerald-800 px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-gray-100 transition w-full sm:w-auto"
               >
                 {cta2.text}
               </button>
@@ -77,13 +77,13 @@ const Hero = () => {
             <img
               src={heroImage}
               alt="export"
-              className="rounded-2xl shadow-2xl w-full max-w-md rotate-[-5deg] hover:rotate-0 transition duration-500"
+              className="rounded-2xl shadow-2xl w-full max-w-xs sm:max-w-md rotate-[-5deg] hover:rotate-0 transition duration-500"
             />
           </div>
         </div>
 
-        {/* FEATURE STRIP */}
-        <div className="absolute bottom-[-30px] left-1/2 transform -translate-x-1/2 w-[90%] bg-white text-gray-800 rounded-xl shadow-xl flex justify-around py-6 text-lg font-medium">
+        {/* FEATURE STRIP (FIXED FOR MOBILE) */}
+        <div className="relative md:absolute md:bottom-[-30px] mt-10 md:mt-0 left-1/2 transform -translate-x-1/2 w-full md:w-[90%] bg-white text-gray-800 rounded-xl shadow-xl flex flex-col md:flex-row items-center justify-around gap-3 py-4 text-sm md:text-lg font-medium px-4">
           <span>✔ Verified Supplier Network</span>
           <span>✔ Quality Inspection</span>
           <span>✔ Competitive Pricing</span>
@@ -92,22 +92,22 @@ const Hero = () => {
       </section>
 
       {/* ================= WHAT WE DO ================= */}
-      <section className="bg-gray-50 pt-20 pb-10 text-center px-6">
-        <h2 className="text-3xl font-bold mb-4">What We Do</h2>
-        <p className="max-w-3xl mx-auto text-gray-600">
+      <section className="bg-gray-50 pt-16 md:pt-20 pb-10 text-center px-4 md:px-6">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4">What We Do</h2>
+        <p className="max-w-3xl mx-auto text-gray-600 text-sm md:text-base">
           At Greenvora Exim, we simplify global sourcing from India. From product
           selection to final delivery, we ensure a smooth, transparent, and reliable export experience.
         </p>
       </section>
 
       {/* ================= PRODUCTS ================= */}
-      <section className="bg-gray-100 py-10 px-6">
-        <h2 className="text-3xl font-bold text-center mb-2">Our Key Products</h2>
-        <p className="text-center text-gray-600 mb-8">
+      <section className="bg-gray-100 py-10 px-4 md:px-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">Our Key Products</h2>
+        <p className="text-center text-gray-600 mb-8 text-sm md:text-base">
           Focused on sustainable and high-demand export categories.
         </p>
 
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
 
           {/* PRODUCT 1 */}
           <div className="bg-white rounded-xl shadow-md overflow-hidden">
@@ -117,7 +117,7 @@ const Hero = () => {
               className="h-48 w-full object-cover"
             />
             <div className="p-4">
-              <h3 className="text-xl font-semibold mb-2">
+              <h3 className="text-lg md:text-xl font-semibold mb-2">
                 Jute Bags & Carry Bags
               </h3>
               <p className="text-gray-600 text-sm">
@@ -134,7 +134,7 @@ const Hero = () => {
               className="h-48 w-full object-cover"
             />
             <div className="p-4">
-              <h3 className="text-xl font-semibold mb-2">
+              <h3 className="text-lg md:text-xl font-semibold mb-2">
                 Jute Sacks & Packaging
               </h3>
               <p className="text-gray-600 text-sm">
@@ -147,36 +147,18 @@ const Hero = () => {
       </section>
 
       {/* ================= WHY CHOOSE ================= */}
-      <section className="bg-white py-12 text-center px-6">
-        <h2 className="text-3xl font-bold mb-6">
+      <section className="bg-white py-10 md:py-12 text-center px-4 md:px-6">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">
           Why Choose Greenvora Exim
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto text-gray-700">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto text-gray-700 text-sm md:text-base">
           <p>✔ Trusted supplier network</p>
           <p>✔ Strict quality checks</p>
           <p>✔ Transparent communication & pricing</p>
           <p>✔ Reliable logistics & timely delivery</p>
         </div>
       </section>
-
-      {/* ================= CTA ================= */}
-      {/* <section className="bg-gradient-to-r from-emerald-900 to-green-600 text-white text-center py-12 px-6">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">
-          Looking for a reliable export partner from India?
-        </h2>
-
-        <p className="mb-6 text-emerald-100">
-          We are open for bulk orders and long-term international partnerships.
-        </p>
-
-        <button
-          onClick={() => navigate('/contact')}
-          className="bg-white text-emerald-800 px-6 py-3 rounded-lg font-semibold shadow hover:bg-gray-100"
-        >
-          Contact Us Today
-        </button>
-      </section> */}
     </>
   );
 };
