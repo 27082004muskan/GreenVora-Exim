@@ -3,7 +3,11 @@ const Product = require('../models/Product');
 
 exports.getProducts = async (req, res) => {
   try {
-    let products = await Product.find();
+    const { category } = req.query;
+    const query =
+      category && category !== "All" ? { category } : {};
+
+    let products = await Product.find(query).lean();
     
     // ✅ SEED YOUR EXACT CURRENT PRODUCTS (runs once)
     if (products.length === 0) {
@@ -21,11 +25,6 @@ exports.getProducts = async (req, res) => {
     }
 
     // Category filtering
-    const { category } = req.query;
-    if (category && category !== 'All') {
-      products = products.filter(product => product.category === category);
-    }
-
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });

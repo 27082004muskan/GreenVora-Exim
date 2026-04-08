@@ -10,6 +10,17 @@ import mapImage from "../assets/products/map.png";
 import ropeImage from "../assets/products/rope.png";
 import storageBagImage from "../assets/products/storagebag.png";
 
+const fallbackProducts = [
+  { id: "f1", name: "Jute Bag", category: "Jute Products", image: "bag.png", description: "" },
+  { id: "f2", name: "Jute Basket", category: "Jute Products", image: "basket.png", description: "" },
+  { id: "f3", name: "Decorative Item", category: "Jute Products", image: "decorative_item.png", description: "" },
+  { id: "f4", name: "Jute Gift Items", category: "Jute Products", image: "gift.png", description: "" },
+  { id: "f5", name: "Jute Items", category: "Jute Products", image: "items.png", description: "" },
+  { id: "f6", name: "Jute Map", category: "Jute Products", image: "map.png", description: "" },
+  { id: "f7", name: "Jute Rope", category: "Jute Products", image: "rope.png", description: "" },
+  { id: "f8", name: "Storage Bag", category: "Jute Products", image: "storagebag.png", description: "" },
+];
+
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isOpen, setIsOpen] = useState(false);
@@ -36,6 +47,8 @@ const Products = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 12000);
       try {
         setLoading(true);
         setError("");
@@ -45,7 +58,9 @@ const Products = () => {
             ? `?category=${encodeURIComponent(selectedCategory)}`
             : "";
 
-        const res = await fetch(`${API_BASE}/api/products${params}`);
+        const res = await fetch(`${API_BASE}/api/products${params}`, {
+          signal: controller.signal,
+        });
         if (!res.ok) {
           throw new Error("Failed to fetch products");
         }
@@ -53,8 +68,15 @@ const Products = () => {
         const data = await res.json();
         setProducts(data);
       } catch (err) {
-        setError(err.message || "Something went wrong");
+        // Keep page usable during backend cold starts/outages.
+        setProducts(
+          selectedCategory === "All"
+            ? fallbackProducts
+            : fallbackProducts.filter((p) => p.category === selectedCategory)
+        );
+        setError("Server is waking up. Showing cached products.");
       } finally {
+        clearTimeout(timeoutId);
         setLoading(false);
       }
     };
