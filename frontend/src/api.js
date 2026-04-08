@@ -1,6 +1,7 @@
-// In development, use relative URLs (Vite proxy forwards /api to backend).
+// In development, keep API_BASE empty so Vite proxy handles /api requests.
 // In production on Render, set VITE_API_URL to your backend URL.
-export const API_BASE = import.meta.env.VITE_API_URL || '';
+const productionApiBase = import.meta.env.PROD ? import.meta.env.VITE_API_URL : '';
+export const API_BASE = productionApiBase || '';
 
 // Warn if API_BASE is empty in production (helps debug Render deployment)
 if (import.meta.env.PROD && !API_BASE) {

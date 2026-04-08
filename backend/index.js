@@ -16,8 +16,15 @@ const serviceRoutes = require("./routes/service");
 const productRoutes = require("./routes/product");
 const domesticRoutes = require("./routes/domestic");
 
-// ✅ CORS: allow local + Render + your custom domains
-// Use hostname-based matching to avoid issues with ports / minor origin variations.
+// ✅ CORS: allow local + Render + custom domains
+const allowedOrigins = new Set([
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "https://greenvora-exim-frontend.onrender.com",
+  "https://greenvoraexim.com",
+  "https://www.greenvoraexim.com",
+]);
+
 const allowedHostnames = new Set([
   "localhost",
   "127.0.0.1",
@@ -26,25 +33,29 @@ const allowedHostnames = new Set([
   "www.greenvoraexim.com",
 ]);
 
-app.use(
-  cors({
-    origin: (origin, cb) => {
-      // allow requests with no origin (curl, server-to-server)
-      if (!origin) return cb(null, true);
-      try {
-        const url = new URL(origin);
-        if (allowedHostnames.has(url.hostname)) {
-          // Return the exact origin so Access-Control-Allow-Origin is set correctly
-          return cb(null, origin);
-        }
-      } catch (_) {
-        // fall through
-      }
-      return cb(new Error(`CORS blocked for origin: ${origin}`));
-    },
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: (origin, cb) => {
+    // Allow non-browser requests (curl, server-to-server)
+    if (!origin) return cb(null, true);
+
+    if (allowedOrigins.has(origin)) return cb(null, true);
+
+    try {
+      const url = new URL(origin);
+      if (allowedHostnames.has(url.hostname)) return cb(null, true);
+    } catch (_) {
+      // Invalid origin format, handled by rejection below.
+    }
+
+    return cb(new Error(`CORS blocked for origin: ${origin}`));
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 
 app.use(express.json());
 
