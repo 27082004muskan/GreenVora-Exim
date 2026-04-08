@@ -74,7 +74,7 @@ const Products = () => {
             ? fallbackProducts
             : fallbackProducts.filter((p) => p.category === selectedCategory)
         );
-        setError("Server is waking up. Showing cached products.");
+        setError("");
       } finally {
         clearTimeout(timeoutId);
         setLoading(false);
