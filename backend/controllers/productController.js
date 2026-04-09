@@ -14,12 +14,7 @@ exports.getProducts = async (req, res) => {
       products = await Product.insertMany([
         { name: "Jute Bag", category: "Jute Products", image: "bag.png" },
         { name: "Jute Basket", category: "Jute Products", image: "basket.png" },
-        { name: "Decorative Item", category: "Jute Products", image: "decorative_item.png" },
-        { name: "Jute Gift Items", category: "Jute Products", image: "gift.png" },
-        { name: "Jute Items", category: "Jute Products", image: "items.png" },
-        { name: "Jute Map", category: "Jute Products", image: "map.png" },
-        { name: "Jute Rope", category: "Jute Products", image: "rope.png" },
-        { name: "Storage Bag", category: "Jute Products", image: "storagebag.png" }
+       
       ]);
       console.log('✅ All your current products created in MongoDB!');
     }
