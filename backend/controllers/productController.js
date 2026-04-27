@@ -1,27 +1,34 @@
-// controllers/productController.js (UPDATE getProducts)
 const Product = require('../models/Product');
+
+// Small in-memory cache to reduce repeated DB reads for same filter.
+const CACHE_TTL_MS = 60 * 1000;
+const productsCache = new Map();
 
 exports.getProducts = async (req, res) => {
   try {
     const { category } = req.query;
-    const query =
-      category && category !== "All" ? { category } : {};
+    const normalizedCategory = category && category !== 'All' ? category : '';
+    const cacheKey = normalizedCategory || 'ALL';
+    const cached = productsCache.get(cacheKey);
 
-    let products = await Product.find(query).lean();
-    
-    // ✅ SEED YOUR EXACT CURRENT PRODUCTS (runs once)
-    if (products.length === 0) {
-      products = await Product.insertMany([
-        { name: "Jute Bag", category: "Jute Products", image: "bag.png" },
-        { name: "Jute Basket", category: "Jute Products", image: "basket.png" },
-       
-      ]);
-      console.log('✅ All your current products created in MongoDB!');
+    if (cached && cached.expiresAt > Date.now()) {
+      return res.json(cached.data);
     }
 
-    // Category filtering
-    res.json(products);
+    const query = normalizedCategory ? { category: normalizedCategory } : {};
+
+    const products = await Product.find(query)
+      .select('name category image description createdAt')
+      .sort({ createdAt: -1 })
+      .lean();
+
+    productsCache.set(cacheKey, {
+      data: products,
+      expiresAt: Date.now() + CACHE_TTL_MS,
+    });
+
+    return res.json(products);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
