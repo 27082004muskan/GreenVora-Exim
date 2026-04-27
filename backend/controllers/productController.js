@@ -3,6 +3,7 @@ const Product = require('../models/Product');
 // Small in-memory cache to reduce repeated DB reads for same filter.
 const CACHE_TTL_MS = 60 * 1000;
 const productsCache = new Map();
+const clearProductsCache = () => productsCache.clear();
 
 exports.getProducts = async (req, res) => {
   try {
@@ -28,6 +29,22 @@ exports.getProducts = async (req, res) => {
     });
 
     return res.json(products);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+exports.deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedProduct = await Product.findByIdAndDelete(id);
+
+    if (!deletedProduct) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    clearProductsCache();
+    return res.json({ success: true, message: 'Product deleted successfully' });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

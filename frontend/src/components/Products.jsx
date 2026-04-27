@@ -10,23 +10,13 @@ import mapImage from "../assets/products/map.png";
 import ropeImage from "../assets/products/rope.png";
 import storageBagImage from "../assets/products/storagebag.png";
 
-const fallbackProducts = [
-  { id: "f1", name: "Jute Bag", category: "Jute Products", image: "bag.png", description: "" },
-  { id: "f2", name: "Jute Basket", category: "Jute Products", image: "basket.png", description: "" },
-  { id: "f3", name: "Decorative Item", category: "Jute Products", image: "decorative_item.png", description: "" },
-  { id: "f4", name: "Jute Gift Items", category: "Jute Products", image: "gift.png", description: "" },
-  { id: "f5", name: "Jute Items", category: "Jute Products", image: "items.png", description: "" },
-  { id: "f6", name: "Jute Map", category: "Jute Products", image: "map.png", description: "" },
-  { id: "f7", name: "Jute Rope", category: "Jute Products", image: "rope.png", description: "" },
-  { id: "f8", name: "Storage Bag", category: "Jute Products", image: "storagebag.png", description: "" },
-];
-
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isOpen, setIsOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const categories = ["All", "Jute Products", "Handicrafts", "Others"];
 
@@ -68,13 +58,8 @@ const Products = () => {
         const data = await res.json();
         setProducts(data);
       } catch (err) {
-        // Keep page usable during backend cold starts/outages.
-        setProducts(
-          selectedCategory === "All"
-            ? fallbackProducts
-            : fallbackProducts.filter((p) => p.category === selectedCategory)
-        );
-        setError("");
+        setProducts([]);
+        setError("Unable to load products right now.");
       } finally {
         clearTimeout(timeoutId);
         setLoading(false);
@@ -82,7 +67,7 @@ const Products = () => {
     };
 
     fetchProducts();
-  }, [selectedCategory]);
+  }, [selectedCategory, refreshKey]);
 
   // Backend already filters, so just use products
   const filteredProducts = products;
@@ -158,49 +143,77 @@ const Products = () => {
         {loading && <p className="text-center text-emerald-700 mb-4">Loading products...</p>}
         {error && <p className="text-center text-red-600 mb-4">{error}</p>}
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-          {filteredProducts.map((product) => {
-            // If image is a full URL (Cloudinary), use it directly; otherwise fall back to local map
-            const imgSrc =
-              product.image && product.image.startsWith("http")
-                ? product.image
-                : imageMap[product.image] || null;
-
-            return (
-              <div
-                key={product._id || product.id}
-                className="group bg-white rounded-2xl p-3 sm:p-4 lg:p-6 border border-emerald-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+        {/* Products Grid / Empty State */}
+        {!loading && filteredProducts.length === 0 ? (
+          <div className="max-w-xl mx-auto bg-white border border-emerald-200 rounded-2xl shadow-md px-6 py-8 text-center">
+            <div className="text-4xl mb-3">🛍️</div>
+            <h3 className="text-xl font-bold text-emerald-900 mb-2">No products found</h3>
+            <p className="text-emerald-700 mb-5">
+              {selectedCategory === "All"
+                ? "There are no products to display right now."
+                : `No products are available in "${selectedCategory}".`}
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {selectedCategory !== "All" && (
+                <button
+                  onClick={() => setSelectedCategory("All")}
+                  className="px-4 py-2 rounded-lg bg-emerald-600 text-white font-medium hover:bg-emerald-700 transition-colors"
+                >
+                  Show All Products
+                </button>
+              )}
+              <button
+                onClick={() => setRefreshKey((k) => k + 1)}
+                className="px-4 py-2 rounded-lg border border-emerald-300 text-emerald-800 font-medium hover:bg-emerald-50 transition-colors"
               >
-                {/* Image */}
-                <div className="w-full h-20 sm:h-24 lg:h-32 xl:h-36 bg-linear-to-br from-emerald-100 to-emerald-200 rounded-lg overflow-hidden mb-2 sm:mb-3 lg:mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all">
-                  {imgSrc ? (
-                    <img
-                      src={imgSrc}
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      onError={() => console.log("Broken URL:", imgSrc)}
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-xs text-emerald-700">
-                      No Image
-                    </div>
-                  )}
-                </div>
+                Retry
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            {filteredProducts.map((product) => {
+              // If image is a full URL (Cloudinary), use it directly; otherwise fall back to local map
+              const imgSrc =
+                product.image && product.image.startsWith("http")
+                  ? product.image
+                  : imageMap[product.image] || null;
 
-                <h3 className="text-sm sm:text-base lg:text-lg font-bold text-emerald-900 mb-1 sm:mb-2 group-hover:text-emerald-800 transition-colors line-clamp-2">
-                  {product.name}
-                </h3>
-                <p className="text-emerald-700 text-xs sm:text-sm font-medium mb-1">
-                  {product.category}
-                </p>
-                <p className="text-emerald-600 text-xs leading-tight line-clamp-2">
-                  {product.description}
-                </p>
-              </div>
-            );
-          })}
-        </div>
+              return (
+                <div
+                  key={product._id || product.id}
+                  className="group bg-white rounded-2xl p-3 sm:p-4 lg:p-6 border border-emerald-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                >
+                  {/* Image */}
+                  <div className="w-full h-20 sm:h-24 lg:h-32 xl:h-36 bg-linear-to-br from-emerald-100 to-emerald-200 rounded-lg overflow-hidden mb-2 sm:mb-3 lg:mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all">
+                    {imgSrc ? (
+                      <img
+                        src={imgSrc}
+                        alt={product.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        onError={() => console.log("Broken URL:", imgSrc)}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-xs text-emerald-700">
+                        No Image
+                      </div>
+                    )}
+                  </div>
+
+                  <h3 className="text-sm sm:text-base lg:text-lg font-bold text-emerald-900 mb-1 sm:mb-2 group-hover:text-emerald-800 transition-colors line-clamp-2">
+                    {product.name}
+                  </h3>
+                  <p className="text-emerald-700 text-xs sm:text-sm font-medium mb-1">
+                    {product.category}
+                  </p>
+                  <p className="text-emerald-600 text-xs leading-tight line-clamp-2">
+                    {product.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );
