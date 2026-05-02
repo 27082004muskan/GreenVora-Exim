@@ -57,7 +57,7 @@ const Products = () => {
 
         const data = await res.json();
         setProducts(data);
-      } catch (err) {
+      } catch {
         setProducts([]);
         setError("Unable to load products right now.");
       } finally {
@@ -185,7 +185,7 @@ const Products = () => {
                   className="group bg-white rounded-2xl p-3 sm:p-4 lg:p-6 border border-emerald-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
                 >
                   {/* Image */}
-                  <div className="w-full h-20 sm:h-24 lg:h-32 xl:h-36 bg-linear-to-br from-emerald-100 to-emerald-200 rounded-lg overflow-hidden mb-2 sm:mb-3 lg:mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all">
+                  <div className="w-50 h-60 bg-linear-to-br from-emerald-100 to-emerald-200 rounded-lg overflow-hidden mb-2 sm:mb-3 lg:mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all">
                     {imgSrc ? (
                       <img
                         src={imgSrc}
@@ -200,7 +200,7 @@ const Products = () => {
                     )}
                   </div>
 
-                  <h3 className="text-sm sm:text-base lg:text-lg font-bold text-emerald-900 mb-1 sm:mb-2 group-hover:text-emerald-800 transition-colors line-clamp-2">
+                  <h3 className="text-sm sm:text-base lg:text-md font-bold text-emerald-900 mb-1 sm:mb-2 group-hover:text-emerald-800 transition-colors line-clamp-2">
                     {product.name}
                   </h3>
                   <p className="text-emerald-700 text-xs sm:text-sm font-medium mb-1">
