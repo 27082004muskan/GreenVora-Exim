@@ -125,7 +125,7 @@ const Hero = () => {
             />
             <div className="p-4">
               <h3 className="text-lg md:text-xl font-semibold mb-2">
-                Jute Bags & Carry Bags
+                Shopping & Carry Bags
               </h3>
               <p className="text-gray-600 text-sm">
                 Eco-friendly, durable, and customizable for retail and promotional use.
@@ -142,7 +142,7 @@ const Hero = () => {
             />
             <div className="p-4">
               <h3 className="text-lg md:text-xl font-semibold mb-2">
-                Jute Sacks & Packaging
+                Jute Sacking Bags
               </h3>
               <p className="text-gray-600 text-sm">
                 Strong and reliable packaging solutions for agriculture and bulk goods.
