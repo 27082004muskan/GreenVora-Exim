@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { API_BASE } from '../../api';
 import heroImage from '../../assets/heroimg.jpg';
 import img1 from '../../assets/hero1.png';
+import img2 from '../../assets/hero2.png';
+
 
 const Hero = () => {
   const navigate = useNavigate();
 
-  const [heroData, setHeroData] = useState({
+  const [heroData,setHeroData ] = useState({
     title: 'Reliable Export Solutions.',
     subtitle: 'Trusted Global Sourcing.',
     description:
@@ -101,7 +103,7 @@ const Hero = () => {
         <h2 className="text-2xl md:text-3xl font-bold mb-4">What We Do</h2>
         <p className="max-w-3xl mx-auto text-gray-600 text-sm md:text-base">
           At Greenvora Exim, we simplify global sourcing from India. From product
-          selection to final delivery, we ensure a smooth, transparent, and reliable export experience.
+          selection to final delivery, we ensure a smooth, transparent, and reliable trade experience.
         </p>
       </section>
 
@@ -119,7 +121,7 @@ const Hero = () => {
             <img
               src={img1}
               alt="jute bags"
-              className="h-48 w-full object-cover"
+              className="h-90 w-full object-cover"
             />
             <div className="p-4">
               <h3 className="text-lg md:text-xl font-semibold mb-2">
@@ -134,9 +136,9 @@ const Hero = () => {
           {/* PRODUCT 2 */}
           <div className="bg-white rounded-xl shadow-md overflow-hidden">
             <img
-              src="https://www.treehugger.com/thmb/pWcEwAXqDYhQofpdkmcGrPpm_0U=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/handmade-natural-jute-knitted-items-for-home-decoration--scandinavian-style--beige-tones-no-people--sustainable-decor-and-interior-details-1275780819-96127afbe21a4453bb240606b3644f53.jpg"
+              src={img2}
               alt="jute sacks"
-              className="h-48 w-full object-cover"
+              className="h-90 w-full object-cover"
             />
             <div className="p-4">
               <h3 className="text-lg md:text-xl font-semibold mb-2">
