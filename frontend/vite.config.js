@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:3000',  // Backend port
+        // Backend dev server. Override with VITE_API_PROXY_TARGET if needed.
+        target: process.env.VITE_API_PROXY_TARGET || 'http://127.0.0.1:3000',
         changeOrigin: true
       }
     }

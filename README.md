@@ -22,3 +22,20 @@ Greenvora Exim is a sustainable import-export platform built for eco-conscious t
 - Email: Nodemailer
 
 Live Demo:  https://greenvora-exim-frontend.onrender.com/
+
+## Local development
+
+Run both servers together (recommended):
+
+```bash
+npm run install:all
+npm run dev
+```
+
+- Frontend: `http://localhost:5173`
+- Backend: `http://127.0.0.1:3000`
+
+### Troubleshooting
+
+- If you see `ECONNREFUSED 127.0.0.1:3000` in the frontend terminal, the backend isn't running. Use `npm run dev` from the repo root to start both.
+- If you need a different backend port/host, set `VITE_API_PROXY_TARGET` (example: `http://127.0.0.1:4000`) before starting the frontend.

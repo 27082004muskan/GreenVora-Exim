@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Product = require('../models/Product');
 
 // Small in-memory cache to reduce repeated DB reads for same filter.
@@ -7,6 +8,12 @@ const clearProductsCache = () => productsCache.clear();
 
 exports.getProducts = async (req, res) => {
   try {
+    // If Mongo isn't connected, avoid throwing and let the UI render gracefully.
+    // Frontend expects an array here.
+    if (mongoose.connection.readyState !== 1) {
+      return res.json([]);
+    }
+
     const { category } = req.query;
     const normalizedCategory = category && category !== 'All' ? category : '';
     const cacheKey = normalizedCategory || 'ALL';
@@ -36,6 +43,10 @@ exports.getProducts = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({ error: 'Database not connected' });
+    }
+
     const { id } = req.params;
     const deletedProduct = await Product.findByIdAndDelete(id);
 
