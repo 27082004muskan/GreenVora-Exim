@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { getDomesticProducts } = require('../controllers/domesticProductController');
+const requireDb = require('../middleware/requireDb');
 
-// ✅ CHANGE FROM '/' OR '/domestic-products' TO THIS:
-router.get('/', getDomesticProducts);  // Matches /api/domestic-products exactly
+router.get('/', requireDb, getDomesticProducts);
 
 module.exports = router;

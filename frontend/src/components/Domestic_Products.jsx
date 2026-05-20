@@ -1,6 +1,6 @@
 // src/components/Domestic_Products.jsx
 import React, { useState, useEffect } from "react";
-import { API_BASE } from "../api";
+import { apiGet } from "../apiClient";
 
 const DomesticProducts = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -12,32 +12,36 @@ const DomesticProducts = () => {
   const categories = ["All", "Jute Products", "Textiles & Fabrics", "Industrial Equipment"];
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    let cancelled = false;
+
+    const load = async () => {
+      setLoading(true);
+      setError("");
+      const params =
+        selectedCategory && selectedCategory !== "All"
+          ? `?category=${encodeURIComponent(selectedCategory)}`
+          : "";
+
       try {
-        setLoading(true);
-        setError("");
-
-        const params =
-          selectedCategory && selectedCategory !== "All"
-            ? `?category=${encodeURIComponent(selectedCategory)}`
-            : "";
-
-        // ✅ CONNECTED TO DOMESTIC BACKEND
-        const res = await fetch(`${API_BASE}/api/domestic-products${params}`);
-        if (!res.ok) {
-          throw new Error("Failed to fetch domestic products");
+        const data = await apiGet(`/api/domestic-products${params}`, {
+          cacheKey: `domestic:${selectedCategory}`,
+        });
+        if (!cancelled) {
+          setProducts(data.products || data);
         }
-
-        const data = await res.json();
-        setProducts(data.products || data);
       } catch (err) {
-        setError(err.message || "Something went wrong");
+        if (!cancelled) {
+          setError(err.message || "Unable to load domestic products.");
+        }
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
-    fetchProducts();
+    load();
+    return () => {
+      cancelled = true;
+    };
   }, [selectedCategory]);
 
   // Backend already filters, so just use products

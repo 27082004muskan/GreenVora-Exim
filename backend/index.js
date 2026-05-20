@@ -3,6 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const path = require("path");
 const fs = require("fs");
+const { connectDB } = require("./utils/db");
 const app = express();
 
 require("dotenv").config();
@@ -15,6 +16,9 @@ const aboutRoutes = require("./routes/about");
 const serviceRoutes = require("./routes/service");
 const productRoutes = require("./routes/product");
 const domesticRoutes = require("./routes/domestic");
+const bootstrapRoutes = require("./routes/bootstrap");
+const { seedDefaults } = require("./utils/seed");
+const { warmProductsCache } = require("./controllers/productController");
 
 // ✅ CORS: allow local + Render + custom domains
 const allowedOrigins = new Set([
@@ -66,6 +70,15 @@ app.use("/api/about", aboutRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/domestic-products", domesticRoutes);
+app.use("/api/bootstrap", bootstrapRoutes);
+
+app.get("/api/health", (req, res) => {
+  const dbReady = mongoose.connection.readyState === 1;
+  res.status(dbReady ? 200 : 503).json({
+    ok: dbReady,
+    db: dbReady ? "connected" : "disconnected",
+  });
+});
 
 // If you want to serve a built frontend from the backend, enable it explicitly.
 // On Render you're deploying frontend separately, so keep this OFF to avoid `dist/index.html` ENOENT errors.
@@ -89,14 +102,20 @@ app.use((err, req, res, next) => {
   });
 });
 
-// MongoDB connection
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("Mongodb Connected"))
-  .catch((err) => console.error(" Mongo err:", err));
-
-// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  console.log(`Production mode: ${process.env.NODE_ENV === 'production'}`);
+  console.log(`Production mode: ${process.env.NODE_ENV === "production"}`);
 });
+
+async function initializeDataLayer() {
+  try {
+    await connectDB();
+    await seedDefaults();
+    await warmProductsCache();
+    console.log("Data layer ready (DB + cache warmed)");
+  } catch (err) {
+    console.error("Data layer init failed:", err.message);
+  }
+}
+
+initializeDataLayer();

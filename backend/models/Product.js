@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ["Jute Products", "Textiles & Fabrics", "Industrial Equipment"],
+      enum: ["Jute Products", "Handicrafts", "Others", "Textiles & Fabrics", "Industrial Equipment"],
     },
     image: {
       type: String, // store filename or full URL

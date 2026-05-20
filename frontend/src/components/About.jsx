@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import aimImage from '../assets/aim.png';
 import visionImage from '../assets/vision.png';
-import { API_BASE } from '../api';
+import { apiGet } from '../apiClient';
 
 const About = () => {
   // Show meaningful content immediately; API just enhances it when ready
@@ -20,8 +20,7 @@ const About = () => {
   });
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/about/`)
-      .then((res) => res.json())
+    apiGet('/api/about/', { cacheKey: 'about' })
       .then((data) => {
         setAboutData((prev) => ({ ...prev, ...data }));
       })

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, Users } from 'lucide-react';
-import { API_BASE } from '../api';
+import { apiGet } from '../apiClient';
 
 const IconMap = {
   TrendingUp: TrendingUp,
@@ -26,13 +26,9 @@ const Services = () => {
   ]);
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/services`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
+    apiGet('/api/services', { cacheKey: 'services' })
       .then((data) => {
-        setServices(data);
+        if (Array.isArray(data) && data.length > 0) setServices(data);
       })
       .catch((err) => {
         console.error('Services fetch error:', err);

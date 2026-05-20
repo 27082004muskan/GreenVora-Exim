@@ -1,26 +1,21 @@
 const Service = require('../models/Services');
+const { createCache, setPublicCacheHeaders } = require('../utils/cache');
+
+const servicesCache = createCache('services', 10 * 60 * 1000);
 
 exports.getServices = async (req, res) => {
-//   console.log("get services called");
   try {
-    let services = await Service.find();
-    if (services.length === 0) {  // ✅ services (lowercase)
-      services = await Service.insertMany([
-        {
-          title: 'Exporter Services',
-          description: 'We help businesses access global markets...',
-          icon: 'TrendingUp'
-        },
-        {
-          title: 'Sourcing Agent Services',
-          description: 'We act as your on-ground sourcing partner...',
-          icon: 'Users'
-        }
-      ]);
-      console.log('Default services created!');
+    const cached = servicesCache.get('all');
+    if (cached) {
+      setPublicCacheHeaders(res);
+      return res.json(cached);
     }
-    res.json(services);
+
+    const services = await Service.find().lean();
+    servicesCache.set('all', services);
+    setPublicCacheHeaders(res);
+    return res.json(services);
   } catch (error) {
-    res.status(500).json({ error: error.message });  // ✅ error (consistent)
+    return res.status(500).json({ error: error.message });
   }
 };

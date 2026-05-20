@@ -1,6 +1,6 @@
 // src/components/Products.jsx
 import React, { useState, useEffect, useMemo } from "react";
-import { API_BASE } from "../api";
+import { clearProductsCache, getProducts, getProductsFromCache } from "../apiClient";
 import bagImage from "../assets/products/bag.png";
 import basketImage from "../assets/products/basket.png";
 import decorativeItemImage from "../assets/products/decorative_item.png";
@@ -14,7 +14,7 @@ const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isOpen, setIsOpen] = useState(false);
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -36,40 +36,40 @@ const Products = () => {
   );
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 12000);
-      try {
-        setLoading(true);
-        setError("");
+    let cancelled = false;
 
-        const params =
-          selectedCategory && selectedCategory !== "All"
-            ? `?category=${encodeURIComponent(selectedCategory)}`
-            : "";
-
-        const res = await fetch(`${API_BASE}/api/products${params}`, {
-          signal: controller.signal,
-        });
-        if (!res.ok) {
-          throw new Error("Failed to fetch products");
-        }
-
-        const data = await res.json();
-        setProducts(data);
-      } catch {
-        setProducts([]);
-        setError("Unable to load products right now.");
-      } finally {
-        clearTimeout(timeoutId);
+    const load = async () => {
+      const cached = getProductsFromCache(selectedCategory);
+      if (cached) {
+        setProducts(cached);
         setLoading(false);
+        setError("");
+        return;
+      }
+
+      setLoading(true);
+      setError("");
+      try {
+        const data = await getProducts(selectedCategory);
+        if (!cancelled) {
+          setProducts(data);
+        }
+      } catch {
+        if (!cancelled) {
+          setProducts([]);
+          setError("Server is waking up. Please wait and tap Retry.");
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
       }
     };
 
-    fetchProducts();
+    load();
+    return () => {
+      cancelled = true;
+    };
   }, [selectedCategory, refreshKey]);
 
-  // Backend already filters, so just use products
   const filteredProducts = products;
 
   return (
@@ -163,7 +163,10 @@ const Products = () => {
                 </button>
               )}
               <button
-                onClick={() => setRefreshKey((k) => k + 1)}
+                onClick={() => {
+                  clearProductsCache();
+                  setRefreshKey((k) => k + 1);
+                }}
                 className="px-4 py-2 rounded-lg border border-emerald-300 text-emerald-800 font-medium hover:bg-emerald-50 transition-colors"
               >
                 Retry
@@ -190,8 +193,9 @@ const Products = () => {
                       <img
                         src={imgSrc}
                         alt={product.name}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        onError={() => console.log("Broken URL:", imgSrc)}
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-xs text-emerald-700">

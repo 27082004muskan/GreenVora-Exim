@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { API_BASE } from '../../api';
+import { apiGet } from '../../apiClient';
 import heroImage from '../../assets/heroimg.jpg';
 import img1 from '../../assets/hero1.png';
 import img2 from '../../assets/hero2.png';
@@ -19,11 +19,7 @@ const Hero = () => {
   });
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/hero`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
+    apiGet('/api/hero', { cacheKey: 'hero' })
       .then((data) => {
         setHeroData((prev) => ({
           ...prev,
