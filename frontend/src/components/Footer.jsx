@@ -7,7 +7,7 @@ const Footer = () => (
         © {new Date().getFullYear()} GREENVORA EXIM. All rights reserved.
       </p>
       <p className="text-emerald-200 mt-2">
-        Empowering Global Trade & Trusted Sourcing
+        Sustainable Packaging Solutions for India & Global Markets
       </p>
     </div>
   </footer>

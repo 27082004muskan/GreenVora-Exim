@@ -4,7 +4,7 @@ const { createCache, setPublicCacheHeaders } = require('../utils/cache');
 const heroCache = createCache('hero', 10 * 60 * 1000);
 
 const defaultHero = {
-  title: 'GREENVORA EXIM',
+  title: 'One-Stop Sustainable Packaging Solutions',
   subtitle: 'Empowering Global Trade & Trusted Sourcing',
   description:
     'Helping businesses find comprehensive export and sourcing solutions worldwide with a focus on quality, reliability, and sustainable partnerships.',

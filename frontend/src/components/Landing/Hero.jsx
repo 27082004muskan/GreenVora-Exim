@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiGet } from '../../apiClient';
-import heroImage from '../../assets/heroimg.jpg';
+import heroImage from '../../assets/heroimg.png';
 import img1 from '../../assets/hero1.png';
 import img2 from '../../assets/hero2.png';
 
@@ -87,10 +87,10 @@ const Hero = () => {
 
         {/* FEATURE STRIP (FIXED FOR MOBILE) */}
         <div className="relative md:absolute md:bottom-[-30px] mt-10 md:mt-0 left-1/2 transform -translate-x-1/2 w-full md:w-[90%] bg-white text-gray-800 rounded-xl shadow-xl flex flex-col md:flex-row items-center justify-around gap-3 py-4 text-sm md:text-lg font-medium px-4">
-          <span>✔ Verified Supplier Network</span>
-          <span>✔ Quality Inspection</span>
-          <span>✔ Competitive Pricing</span>
-          <span>⏱ Timely Delivery</span>
+          <span>✔ Sustainable Packaging Solutions</span>
+          <span>✔ Custom Branding & Printing</span>
+          <span>✔ Bulk Supply Support</span>
+          <span>✔ India & Global Markets</span>
         </div>
       </section>
 
@@ -98,8 +98,7 @@ const Hero = () => {
       <section className="bg-gray-50 pt-16 md:pt-20 pb-10 text-center px-4 md:px-6">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">What We Do</h2>
         <p className="max-w-3xl mx-auto text-gray-600 text-sm md:text-base">
-          At Greenvora Exim, we simplify global sourcing from India. From product
-          selection to final delivery, we ensure a smooth, transparent, and reliable trade experience.
+          We provide sustainable packaging solutions designed to help businesses reduce environmental impact while enhancing brand visibility. Whether you need jute bags, compostable bags and paper bags our team delivers customized packaging solutions backed by quality, reliability, and scalable supply capabilities.
         </p>
       </section>
 
@@ -107,7 +106,7 @@ const Hero = () => {
       <section className="bg-gray-100 py-10 px-4 md:px-6">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">Our Key Products</h2>
         <p className="text-center text-gray-600 mb-8 text-sm md:text-base">
-          Focused on sustainable and high-demand export categories.
+          Sustainable packaging products designed to support your branding and packaging needs.
         </p>
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -121,10 +120,10 @@ const Hero = () => {
             />
             <div className="p-4">
               <h3 className="text-lg md:text-xl font-semibold mb-2">
-                Shopping & Carry Bags
+                Jute Packaging 
               </h3>
               <p className="text-gray-600 text-sm">
-                Eco-friendly, durable, and customizable for retail and promotional use.
+                Sustainable jute packaging for shopping, gifting, and promotional 
               </p>
             </div>
           </div>
@@ -138,10 +137,10 @@ const Hero = () => {
             />
             <div className="p-4">
               <h3 className="text-lg md:text-xl font-semibold mb-2">
-                Jute Sacking Bags
+                Compostable Packaging 
               </h3>
               <p className="text-gray-600 text-sm">
-                Strong and reliable packaging solutions for agriculture and bulk goods.
+Eco-friendly packaging solutions designed for a more sustainable future
               </p>
             </div>
           </div>
@@ -155,11 +154,8 @@ const Hero = () => {
           Why Choose Greenvora Exim
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto text-gray-700 text-sm md:text-base">
-          <p>✔ Trusted supplier network</p>
-          <p>✔ Strict quality checks</p>
-          <p>✔ Transparent communication & pricing</p>
-          <p>✔ Reliable logistics & timely delivery</p>
+       <div className="max-w-3xl mx-auto text-gray-600 text-sm md:text-base">
+      We provide sustainable packaging solutions that help businesses strengthen their brand, reduce environmental impact, and meet their unique packaging requirements through quality products and customization options.
         </div>
       </section>
     </>
