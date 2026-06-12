@@ -1,29 +1,45 @@
 const About = require('../models/About');
+const Hero = require('../models/Hero');
 const Service = require('../models/Services');
 const DomesticProduct = require('../models/DomesticProduct');
+const { defaultHero } = require('../controllers/heroController');
+const { defaultAbout } = require('../controllers/aboutController');
 
 async function seedDefaults() {
   const tasks = [];
 
   tasks.push(
+    Hero.countDocuments().then(async (count) => {
+      if (count > 0) return;
+      await Hero.create(defaultHero);
+      console.log('Default hero data seeded');
+    })
+  );
+
+  tasks.push(
     About.countDocuments().then(async (count) => {
       if (count > 0) return;
-      await About.create({
-        heading: 'Welcome To Greenvora Exim',
-        aboutUs: {
-          title: 'About Us',
-          content:
-            'Greenvora Exim is a growing import and export company from India, dedicated to delivering high-quality products with a strong focus on reliability, sustainability, and smooth end-to-end service.',
-          image: '/assets/aim.png',
-        },
-        vision: {
-          title: 'Our Vision',
-          content:
-            'Our vision is to build Greenvora Exim into a trusted global partner known for delivering reliable, sustainable, and high-quality export solutions.',
-          image: '/assets/vision.png',
-        },
-      });
+      await About.create(defaultAbout);
       console.log('Default about data seeded');
+    })
+  );
+
+  tasks.push(
+    About.findOne().then(async (doc) => {
+      if (!doc) return;
+      let changed = false;
+      if (!doc.aboutUs?.image) {
+        doc.aboutUs.image = 'aim.png';
+        changed = true;
+      }
+      if (!doc.vision?.image) {
+        doc.vision.image = 'vision.png';
+        changed = true;
+      }
+      if (changed) {
+        await doc.save();
+        console.log('About images backfilled');
+      }
     })
   );
 

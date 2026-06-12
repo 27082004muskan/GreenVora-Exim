@@ -128,7 +128,3 @@ export async function getProducts(category = 'All') {
   const all = await prefetchProducts();
   return filterByCategory(all, category);
 }
-
-export async function getBootstrap() {
-  return apiGet('/api/bootstrap', { cacheKey: 'bootstrap' });
-}

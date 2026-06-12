@@ -16,7 +16,6 @@ const aboutRoutes = require("./routes/about");
 const serviceRoutes = require("./routes/service");
 const productRoutes = require("./routes/product");
 const domesticRoutes = require("./routes/domestic");
-const bootstrapRoutes = require("./routes/bootstrap");
 const { seedDefaults } = require("./utils/seed");
 const { warmProductsCache } = require("./controllers/productController");
 
@@ -70,7 +69,6 @@ app.use("/api/about", aboutRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/domestic-products", domesticRoutes);
-app.use("/api/bootstrap", bootstrapRoutes);
 
 app.get("/api/health", (req, res) => {
   const dbReady = mongoose.connection.readyState === 1;
