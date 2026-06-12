@@ -4,25 +4,27 @@ import visionImage from '../assets/vision.png';
 import { apiGet } from '../apiClient';
 
 const About = () => {
-  // Show meaningful content immediately; API just enhances it when ready
   const [aboutData, setAboutData] = useState({
     heading: 'Welcome To Greenvora Exim',
     aboutUs: {
       title: 'About Us',
       content:
-        'Greenvora Exim is a growing import and export company from India, dedicated to delivering high-quality products with a strong focus on reliability, sustainability, and smooth end-to-end service. We believe in building long-term partnerships through transparent communication, consistent quality, and a customer-first approach. Our commitment to timely deliveries, ethical operations, and dependable support ensures a seamless and trustworthy experience for clients across global markets.',
+        'Greenvora Exim is a growing import and export company from India, dedicated to delivering high-quality products with a strong focus on reliability, sustainability, and smooth end-to-end service. We believe in building long-term partnerships through transparent communication, consistent quality, and a customer-first approach.',
     },
     vision: {
       title: 'Our Vision',
       content:
-        'Our vision is to build Greenvora Exim into a trusted global partner known for delivering reliable, sustainable, and high-quality export solutions. We are committed to ethical sourcing, consistent product quality, and a customer-first approach that ensures long-term business success. By expanding our international network, strengthening supply capabilities, and offering value-driven services, we aim to support businesses worldwide with dependable products and seamless import–export experiences. Our focus is on creating meaningful, long-lasting partnerships that contribute to transparent, responsible, and sustainable global trade.',
+        'To become a trusted partner for sustainable packaging solutions, empowering businesses across India and global markets with innovative, customizable, and eco-friendly packaging that creates a positive impact on both brands and the environment.',
     },
   });
 
   useEffect(() => {
     apiGet('/api/about/', { cacheKey: 'about' })
       .then((data) => {
-        setAboutData((prev) => ({ ...prev, ...data }));
+        setAboutData((prev) => ({
+          ...prev,
+          ...data,
+        }));
       })
       .catch((err) => {
         console.error('About fetch error:', err);
@@ -32,35 +34,71 @@ const About = () => {
   const { heading, aboutUs, vision } = aboutData || {};
 
   return (
-    <section className="py-28 bg-emerald-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 sm:mb-20">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-linear-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent mb-6">
-            {heading}
+    <section className="bg-white py-20">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+
+        {/* Header */}
+        <div className="mb-16 border-b border-gray-200 pb-8 py-8">
+          <h1 className="text-4xl lg:text-5xl font-bold text-emerald-900 ">
+            {heading || 'Welcome To Greenvora Exim'}
           </h1>
+
+          <p className="mt-4 max-w-3xl text-gray-600 leading-8">
+            Delivering quality products worldwide through trust,
+            sustainability, and long-term partnerships.
+          </p>
         </div>
 
-        {/* About Us */}
-        <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12">
-          <div className="lg:w-1/2">
-            <h2 className="text-2xl lg:text-3xl font-bold text-emerald-900 mb-6">{aboutUs?.title}</h2>
-            <p className="text-base sm:text-lg text-emerald-800 leading-relaxed">{aboutUs?.content}</p>
+        {/* About Us Section */}
+        <div className="grid lg:grid-cols-2 gap-14 items-center mb-24">
+
+          <div className="overflow-hidden rounded-lg">
+            <img
+              src={aimImage}
+              alt="About Us"
+              className="w-full h-[450px] object-cover transition duration-500 hover:scale-105"
+            />
           </div>
-          <div className="hidden lg:flex lg:w-1/2 justify-end">
-            <img src={aimImage} alt="About Us" className="w-full max-w-md h-80 object-cover rounded-2xl shadow-xl" />
+
+          <div>
+            <div className="w-16 h-1 bg-emerald-600 mb-6"></div>
+
+            <h2 className="text-3xl font-semibold text-gray-900 mb-6">
+              {aboutUs?.title || 'About Us'}
+            </h2>
+
+            <p className="text-gray-600 leading-8 text-lg">
+              {aboutUs?.content}
+            </p>
           </div>
+
         </div>
 
-        {/* Vision */}
-        <div className="flex flex-col lg:flex-row-reverse items-start gap-8 lg:gap-12 mt-12 lg:mt-16">
-          <div className="lg:w-1/2">
-            <h2 className="text-2xl lg:text-3xl font-bold text-emerald-900 mb-6">{vision?.title}</h2>
-            <p className="text-base sm:text-lg text-emerald-800 leading-relaxed">{vision?.content}</p>
+        {/* Vision Section */}
+        <div className="grid lg:grid-cols-2 gap-14 items-center">
+
+          <div className="order-2 lg:order-1">
+            <div className="w-16 h-1 bg-emerald-600 mb-6"></div>
+
+            <h2 className="text-3xl font-semibold text-gray-900 mb-6">
+              {vision?.title || 'Our Vision'}
+            </h2>
+
+            <p className="text-gray-600 leading-8 text-lg">
+              {vision?.content}
+            </p>
           </div>
-          <div className="hidden lg:flex lg:w-1/2 justify-start">
-            <img src={visionImage} alt="Vision" className="w-full max-w-md h-80 object-cover rounded-2xl shadow-xl" />
+
+          <div className="overflow-hidden rounded-lg order-1 lg:order-2">
+            <img
+              src={visionImage}
+              alt="Vision"
+              className="w-full h-[450px] object-cover transition duration-500 hover:scale-105"
+            />
           </div>
+
         </div>
+
       </div>
     </section>
   );
