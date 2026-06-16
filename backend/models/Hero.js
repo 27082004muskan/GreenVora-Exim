@@ -27,7 +27,6 @@ const heroSchema = new mongoose.Schema(
     title: { type: String, required: true, trim: true },
     subtitle: { type: String, required: true, trim: true },
     description: { type: String, required: true, trim: true },
-    tagline: { type: String, default: '' },
     image: { type: String, default: 'heroimg.png' },
     cta1: { type: ctaSchema, default: () => ({ text: 'View Products', path: '/products' }) },
     cta2: { type: ctaSchema, default: () => ({ text: 'Request a Demo', path: '/contact' }) },

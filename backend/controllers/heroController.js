@@ -9,8 +9,7 @@ const defaultHero = {
   subtitle: 'Trusted Global Sourcing.',
   description:
     'We help global buyers source high-quality products from India with transparency, consistency, and dependable supply.',
-  tagline: 'Specializing in eco-friendly jute products and customized sourcing solutions.',
-  image: 'heroimg.png',
+
   cta1: { text: 'View Products', path: '/products' },
   cta2: { text: 'Request a Demo', path: '/contact' },
   features: [

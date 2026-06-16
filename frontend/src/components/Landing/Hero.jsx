@@ -11,7 +11,6 @@ const defaultHero = {
   subtitle: 'Trusted Global Sourcing.',
   description:
     'We help global buyers source high-quality products from India with transparency, consistency, and dependable supply.',
-  tagline: 'Specializing in eco-friendly jute products and customized sourcing solutions.',
   image: 'heroimg.png',
   cta1: { text: 'View Products', path: '/products' },
   cta2: { text: 'Request a Demo', path: '/contact' },
@@ -79,7 +78,6 @@ const Hero = () => {
     title,
     subtitle,
     description,
-    tagline,
     image,
     cta1,
     cta2,
@@ -106,9 +104,6 @@ const Hero = () => {
 
             <p className="text-base md:text-lg text-emerald-50 mb-4">{description}</p>
 
-            {tagline && (
-              <p className="text-sm text-emerald-100 mb-6">{tagline}</p>
-            )}
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
               <button
