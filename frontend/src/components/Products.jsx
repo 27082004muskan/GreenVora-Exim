@@ -18,7 +18,7 @@ const Products = () => {
   const [error, setError] = useState("");
   const [refreshKey, setRefreshKey] = useState(0);
 
-  const categories = ["All", "Jute Products", "Handicrafts", "Others"];
+  const categories = ["All", "Jute Packaging", "Compostable Packaging","Paper Packaging", "Others"];
 
   // Optional: keep this if some products still use local filenames like "bag.png"
   const imageMap = useMemo(
@@ -107,9 +107,9 @@ const Products = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 className="bg-white border border-emerald-200 rounded-xl px-6 py-3 text-lg font-semibold text-emerald-900 shadow-lg hover:shadow-xl transition-all flex items-center gap-2 min-w-[220px] justify-between"
               >
-                <span>
-                  {selectedCategory} ({filteredProducts.length})
-                </span>
+               <span>
+  {selectedCategory}
+</span>
                 <svg
                   className={`w-5 h-5 transition-transform ${isOpen ? "rotate-180" : ""}`}
                   fill="none"
