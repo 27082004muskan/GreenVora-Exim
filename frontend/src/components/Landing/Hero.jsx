@@ -91,7 +91,7 @@ const Hero = () => {
 
   return (
     <>
-      <section className="relative bg-gradient-to-r from-emerald-900 via-emerald-800 to-green-700 text-white py-16 md:py-20 px-4 md:px-24">
+      <section className="relative bg-gradient-to-linear from-emerald-900 via-emerald-800 to-green-700 text-white py-16 md:py-20 px-4 md:px-24">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
           <div className="lg:w-1/2 text-center lg:text-left">
             <h1 className="text-3xl md:text-5xl font-bold pt-15 leading-tight mb-4">
