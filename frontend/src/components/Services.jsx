@@ -54,9 +54,9 @@ const Services = () => {
                 <h3 className="text-2xl sm:text-2xl lg:text-3xl font-bold text-emerald-900 mb-4 sm:mb-6">
                   {service.title}
                 </h3>
-                <p className="text-sm sm:text-base lg:text-lg-2xl text-emerald-800 leading-relaxed line-clamp-4 sm:line-clamp-none">
-                  {service.description}
-                </p>
+              <p className="text-sm sm:text-base lg:text-lg text-emerald-800 leading-relaxed whitespace-pre-line">
+  {service.description}
+</p>
               </div>
             );
           })}
