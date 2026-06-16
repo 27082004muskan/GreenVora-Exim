@@ -1,34 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import {Users } from 'lucide-react';
 import { apiGet } from '../apiClient';
 
-const IconMap = {
-
-  Users: Users
-  // Add more icons as needed
-};
-
 const Services = () => {
-  // Show helpful defaults instantly; API response will replace them
-  const [services, setServices] = useState([
-    {
-      title: 'Exporter Services',
-      description:
-        'We help businesses access global markets with reliable, end-to-end export solutions. Along with a strong focus on eco-friendly jute products—such as jute products, home décor items, handicrafts, etc. From product sourcing and quality inspections to documentation, logistics, and timely delivery, we ensure your shipments are handled with complete professionalism and compliance. With us, exporting becomes smooth, efficient, and worry-free.',
-      
-    },
-    {
-      title: 'Sourcing Agent Services',
-      description:
-        'We act as your on-ground sourcing partner in India—finding the right manufacturers, negotiating the best prices, and ensuring strict quality standards. With transparent communication and supplier verification, we help you source the perfect products without risk, delays, or hidden costs. Your global procurement becomes easier, faster, and more efficient.',
-     
-    },
-  ]);
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
     apiGet('/api/services', { cacheKey: 'services' })
       .then((data) => {
-        if (Array.isArray(data) && data.length > 0) setServices(data);
+        if (Array.isArray(data)) setServices(data);
       })
       .catch((err) => {
         console.error('Services fetch error:', err);
