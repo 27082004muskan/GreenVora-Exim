@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         // Backend dev server. Override with VITE_API_PROXY_TARGET if needed.
-        target: process.env.VITE_API_PROXY_TARGET || 'http://127.0.0.1:3000',
+        target: process.env.VITE_API_PROXY_TARGET || 'http://localhost:3000',
         changeOrigin: true
       }
     }

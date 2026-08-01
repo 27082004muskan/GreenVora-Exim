@@ -1,7 +1,7 @@
 import { API_BASE } from './api';
 
 const IS_PROD = import.meta.env.PROD;
-const MAX_ATTEMPTS = IS_PROD ? 5 : 2;
+const MAX_ATTEMPTS = IS_PROD ? 5 : 4;
 const TIMEOUT_MS = IS_PROD ? 45000 : 15000;
 const CLIENT_CACHE_MS = 10 * 60 * 1000;
 

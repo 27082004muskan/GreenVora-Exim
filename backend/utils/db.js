@@ -1,6 +1,21 @@
+const dns = require('dns');
 const mongoose = require('mongoose');
 
 let connectPromise = null;
+
+/** Node's c-ares resolver can get querySrv ECONNREFUSED on some ISP DNS; Atlas SRV still works via public DNS. */
+function configureMongoDns() {
+  const uri = process.env.MONGO_URI;
+  if (!uri?.startsWith('mongodb+srv://')) {
+    return;
+  }
+
+  const servers = process.env.MONGO_DNS_SERVERS
+    ? process.env.MONGO_DNS_SERVERS.split(',').map((s) => s.trim()).filter(Boolean)
+    : ['8.8.8.8', '8.8.4.4', '1.1.1.1'];
+
+  dns.setServers(servers);
+}
 
 const connectOptions = {
   serverSelectionTimeoutMS: 30000,
@@ -17,6 +32,8 @@ async function connectDB() {
   if (!process.env.MONGO_URI) {
     throw new Error('MONGO_URI is not set');
   }
+
+  configureMongoDns();
 
   if (!connectPromise) {
     connectPromise = mongoose

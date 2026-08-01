@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -6,7 +8,6 @@ const fs = require("fs");
 const { connectDB } = require("./utils/db");
 const app = express();
 
-require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 // Routes imports
@@ -62,6 +63,17 @@ app.options(/.*/, cors(corsOptions));
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  const dbReady = mongoose.connection.readyState === 1;
+  res.json({
+    service: "GreenVora API",
+    status: dbReady ? "ready" : "starting",
+    db: dbReady ? "connected" : "disconnected",
+    health: "/api/health",
+    hint: "Use the frontend at http://localhost:5173 — this port serves API routes only.",
+  });
+});
+
 // ✅ API ROUTES FIRST (All your existing routes)
 app.use("/api/enquiry", enquiryRoutes);
 app.use("/api/hero", heroRoutes);
@@ -100,12 +112,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Production mode: ${process.env.NODE_ENV === "production"}`);
-});
-
-async function initializeDataLayer() {
+async function start() {
   try {
     await connectDB();
     await seedDefaults();
@@ -114,6 +121,11 @@ async function initializeDataLayer() {
   } catch (err) {
     console.error("Data layer init failed:", err.message);
   }
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Production mode: ${process.env.NODE_ENV === "production"}`);
+  });
 }
 
-initializeDataLayer();
+start();
