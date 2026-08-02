@@ -3,30 +3,39 @@ const { createCache, setPublicCacheHeaders } = require('../utils/cache');
 
 const productsCache = createCache('products', 10 * 60 * 1000);
 
-async function loadAllProducts() {
-  const cached = productsCache.get('ALL');
-  if (cached) return cached;
+async function loadAllProducts(bypassCache = false) {
+  if (!bypassCache) {
+    const cached = productsCache.get('ALL');
+    if (cached) return cached;
+  }
 
   const products = await Product.find()
     .select('name category image description createdAt')
     .sort({ createdAt: -1 })
     .lean();
 
-  productsCache.set('ALL', products);
+  if (!bypassCache) {
+    productsCache.set('ALL', products);
+  }
   return products;
 }
 
 exports.getProducts = async (req, res) => {
   try {
+    const isDev = process.env.NODE_ENV !== 'production';
     const { category } = req.query;
     const normalizedCategory = category && category !== 'All' ? category : '';
-    const allProducts = await loadAllProducts();
+    const allProducts = await loadAllProducts(isDev);
 
     const data = normalizedCategory
       ? allProducts.filter((p) => p.category === normalizedCategory)
       : allProducts;
 
-    setPublicCacheHeaders(res);
+    if (!isDev) {
+      setPublicCacheHeaders(res);
+    } else {
+      res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
     return res.json(data);
   } catch (error) {
     return res.status(500).json({ error: error.message });

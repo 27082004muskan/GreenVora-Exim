@@ -49,8 +49,9 @@ function setCached(key, data) {
 }
 
 export async function apiGet(path, { cacheKey, useCache = true } = {}) {
+  const shouldCache = IS_PROD ? useCache : false;
   const key = cacheKey || path;
-  if (useCache) {
+  if (shouldCache) {
     const cached = getCached(key);
     if (cached !== null && cached !== undefined) return cached;
   }
@@ -74,7 +75,7 @@ export async function apiGet(path, { cacheKey, useCache = true } = {}) {
         throw new Error(payload?.error || `Request failed (${res.status})`);
       }
 
-      if (useCache) setCached(key, payload);
+      if (shouldCache) setCached(key, payload);
       return payload;
     } catch (err) {
       if (attempt < MAX_ATTEMPTS) {
@@ -116,6 +117,15 @@ export function clearProductsCache() {
   memoryCache.delete('products:all');
   try {
     sessionStorage.removeItem('products:all');
+  } catch {
+    // ignore
+  }
+}
+
+export function clearServicesCache() {
+  memoryCache.delete('services');
+  try {
+    sessionStorage.removeItem('services');
   } catch {
     // ignore
   }
