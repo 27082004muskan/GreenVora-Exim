@@ -8,10 +8,10 @@ import img1 from '../../assets/hero1.png';
 import img2 from '../../assets/hero2.png';
 
 const defaultHero = {
-  title: 'Reliable Export Solutions.',
-  subtitle: 'Trusted Global Sourcing.',
+  title: 'One-Stop Sustainable Packaging Solutions',
+  subtitle: 'Customized Jute Bags, Compostable Bags and Paper Bags for India and Global Markets.',
   description:
-    'We help global buyers source high-quality products from India with transparency, consistency, and dependable supply.',
+    'Greenvora Exim helps businesses transition to sustainable packaging through high-quality jute bags, compostable bags and paper bags. From custom branding and printing to bulk supply and export support, we provide end-to-end packaging solutions tailored to your business needs.',
 
   image: 'heroimg.png',
 
@@ -35,7 +35,7 @@ const defaultHero = {
   whatWeDo: {
     title: 'What We Do',
     content:
-      'We provide sustainable packaging solutions designed to help businesses reduce environmental impact while enhancing brand visibility.',
+      'We provide sustainable packaging solutions designed to help businesses reduce environmental impact while enhancing brand visibility. Whether you need jute bags, compostable bags and paper bags our team delivers customized packaging solutions backed by quality, reliability, and scalable supply capabilities.',
   },
 
   keyProducts: [
@@ -56,7 +56,7 @@ const defaultHero = {
   whyChoose: {
     title: 'Why Choose Greenvora Exim',
     content:
-      'We provide sustainable packaging solutions that help businesses strengthen their brand, reduce environmental impact, and meet their unique packaging requirements.',
+      'We provide sustainable packaging solutions that help businesses strengthen their brand, reduce environmental impact, and meet their unique packaging requirements through quality products and customization options.',
   },
 };
 
