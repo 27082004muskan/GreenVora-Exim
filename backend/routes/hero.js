@@ -5,5 +5,7 @@ const requireDb = require('../middleware/requireDb');
 
 router.get('/', requireDb, getHero);
 router.put('/', requireDb, updateHero);
+router.post('/', requireDb, updateHero);
+router.patch('/', requireDb, updateHero);
 
-module.exports=router;
+module.exports = router;

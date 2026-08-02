@@ -5,13 +5,16 @@ const heroCache = createCache('hero', 10 * 60 * 1000);
 const clearHeroCache = () => heroCache.clear();
 
 const defaultHero = {
-  title: 'Reliable Export Solutions.',
-  subtitle: 'Trusted Global Sourcing.',
+  title: 'One-Stop Sustainable Packaging Solutions',
+  subtitle:
+    'Customized Jute Bags, Compostable Bags and Paper Bags for India and Global Markets',
   description:
-    'We help global buyers source high-quality products from India with transparency, consistency, and dependable supply.',
+    'Greenvora Exim helps businesses transition to sustainable packaging through high-quality jute bags, compostable bags and paper bags. From custom branding and printing to bulk supply and export support, we provide end-to-end packaging solutions tailored to your business needs.',
 
-  cta1: { text: 'View Products', path: '/products' },
-  cta2: { text: 'Request a Demo', path: '/contact' },
+  image: 'https://res.cloudinary.com/dijfpjm2s/image/upload/v1781271915/hero_pztlfl.png',
+
+  cta1: { text: 'Learn More', path: '/learn-more' },
+  cta2: { text: 'Contact Us', path: '/contact' },
   features: [
     'Sustainable Packaging Solutions',
     'Custom Branding & Printing',
@@ -58,19 +61,31 @@ function normalizeHero(doc) {
 
 exports.getHero = async (req, res) => {
   try {
-    const cached = heroCache.get('main');
-    if (cached) {
-      setPublicCacheHeaders(res);
-      return res.json(cached);
+    const isDev = process.env.NODE_ENV !== 'production';
+    if (!isDev) {
+      const cached = heroCache.get('main');
+      if (cached) {
+        setPublicCacheHeaders(res);
+        return res.json(cached);
+      }
+    } else {
+      res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
     }
 
-    const hero = await Hero.findOne().lean();
+    let hero = await Hero.findOne().lean();
+    if (!hero) {
+      const created = await Hero.create(defaultHero);
+      hero = created.toObject();
+    }
+
     const payload = normalizeHero(hero);
-    heroCache.set('main', payload);
-    setPublicCacheHeaders(res);
+    if (!isDev) {
+      heroCache.set('main', payload);
+      setPublicCacheHeaders(res);
+    }
     return res.json(payload);
   } catch (error) {
-    return res.status(500).json({ error: 'Server error' });
+    return res.status(500).json({ error: 'Server error: ' + error.message });
   }
 };
 
