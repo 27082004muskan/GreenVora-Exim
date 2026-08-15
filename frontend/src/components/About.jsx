@@ -9,13 +9,13 @@ const defaultAbout = {
   aboutUs: {
     title: 'About Us',
     content:
-      'Greenvora Exim is a growing import and export company from India, dedicated to delivering high-quality products with a strong focus on reliability, sustainability, and smooth end-to-end service.',
+      'Greenvora Exim is a growing import and export company from India, dedicated to delivering high-quality products with a strong focus on reliability, sustainability, and smooth end-to-end service. We believe in building long-term partnerships through transparent communication, consistent quality, and a customer-first approach.',
     image: 'aim.png',
   },
   vision: {
     title: 'Our Vision',
     content:
-      'To become a trusted partner for sustainable packaging solutions, empowering businesses across India and global markets with innovative, customizable, and eco-friendly packaging.',
+      'To become a trusted partner for sustainable packaging solutions, empowering businesses across India and global markets with innovative, customizable, and eco-friendly packaging that creates a positive impact on both brands and the environment.',
     image: 'vision.png',
   },
 };
